@@ -14,12 +14,10 @@ app.get('/images',function(req, res){
   //get data from server
   db.query('SELECT * FROM images')
   .then(function(data){
-    return data.rows.map(function(item){
+    dbimages = data.rows.map(function(item){
       item.image = s3Url+item.image;
       return item;
-    })
-  })
-  .then(function(dbimages){
+    });
     res.json({'images':dbimages})
   })
   .catch(function(err){
