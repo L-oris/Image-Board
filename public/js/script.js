@@ -5,6 +5,9 @@ Array.prototype.slice.call(templates).forEach(function(tmpl) {
     Handlebars.templates[tmpl.id] = Handlebars.compile(tmpl.innerHTML.replace(/{{&gt;/g, '{{>'));
 });
 
+
+//create Model to handle data for home page
+
 //create View for home page
 const HomeView = Backbone.View.extend({
   initialize: function(){},
