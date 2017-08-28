@@ -18,6 +18,7 @@ const HomeModel = Backbone.Model.extend({
 const HomeView = Backbone.View.extend({
   initialize: function(){
     var view = this;
+    //re-render the view whenever model changes
     this.model.on('change', function(){
       view.render();
     })
@@ -28,11 +29,18 @@ const HomeView = Backbone.View.extend({
   }
 });
 
-// console.log('homeModel is now',homeModel);
 const homeView = new HomeView({
   model: new HomeModel(),
   el: '#main'
 });
 
-//render homepage to body
-$('body').append(homeView.render());
+
+//create basic router
+const Router = Backbone.Router.extend({
+  routes: {
+    '': 'home'
+  },
+  home:function(){
+    homeView.render();
+  }
+});
