@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 //get url for static images
-const urlAddress = require('./config.json');
+const {s3Url} = require('./config.json');
 
 //connect to local database
+const {username,password} = require('./secrets.json');
 var spicedPg = require('spiced-pg');
-var db = spicedPg('postgres:Loris:765joker8a@localhost:5432/imageBoard');
+var db = spicedPg(`postgres:${username}:${password}@localhost:5432/imageBoard`);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -13,7 +14,10 @@ app.get('/images',function(req, res){
   //get data from server
   db.query('SELECT * FROM images')
   .then(function(data){
-    return data.rows
+    return data.rows.map(function(item){
+      item.image = s3Url+item.image;
+      return item;
+    })
   })
   .then(function(dbimages){
     res.json({'images':dbimages})

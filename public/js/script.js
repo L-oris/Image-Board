@@ -7,19 +7,32 @@ Array.prototype.slice.call(templates).forEach(function(tmpl) {
 
 
 //create Model to handle data for home page
+const HomeModel = Backbone.Model.extend({
+  initialize: function(){
+    this.fetch();
+  },
+  url: '/images'
+});
 
 //create View for home page
 const HomeView = Backbone.View.extend({
-  initialize: function(){},
+  initialize: function(){
+    var view = this;
+    this.model.on('change', function(){
+      view.render();
+    })
+  },
   render: function(){
-    const html = Handlebars.templates.home();;
+    const html = Handlebars.templates.home(this.model.toJSON());
     this.$el.html(html);
   }
 });
-const home = new HomeView({
-  el: '#main',
-  model: {}
+
+// console.log('homeModel is now',homeModel);
+const homeView = new HomeView({
+  model: new HomeModel(),
+  el: '#main'
 });
 
 //render homepage to body
-$('body').append(home.render());
+$('body').append(homeView.render());
