@@ -1,0 +1,172 @@
+/*OVERALL STYLES*/
+body {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: #00308F;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+li {
+  margin: 0;
+  padding: 0;
+}
+/*COMMON CLASSES*/
+.text-center {
+  text-align: center;
+}
+.block-center {
+  display: block;
+  margin: 0 auto;
+}
+.mar-xl {
+  margin: 8em;
+}
+.mar-lg {
+  margin: 4em;
+}
+.mar-md {
+  margin: 2em;
+}
+.mar-sm {
+  margin: 1em;
+}
+.mar-xs {
+  margin: .5em;
+}
+.mar-0 {
+  margin: 0;
+}
+.mar-vert-xl {
+  margin-top: 8em;
+  margin-bottom: 8em;
+}
+.mar-vert-lg {
+  margin-top: 4em;
+  margin-bottom: 4em;
+}
+.mar-vert-md {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.mar-vert-sm {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.mar-vert-xs {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+.mar-hor-xl {
+  margin-left: 8em;
+  margin-right: 8em;
+}
+.mar-hor-lg {
+  margin-left: 4em;
+  margin-right: 4em;
+}
+.mar-hor-md {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+.mar-hor-sm {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.mar-hor-xs {
+  margin-left: .5em;
+  margin-right: .5em;
+}
+.mar-top-xl {
+  margin-top: 8em;
+}
+.mar-top-lg {
+  margin-top: 4em;
+}
+.mar-top-md {
+  margin-top: 2em;
+}
+.mar-top-sm {
+  margin-top: 1em;
+}
+.mar-top-xs {
+  margin-top: .5em;
+}
+.mar-bot-xl {
+  margin-bottom: 4em;
+}
+.mar-bot-lg {
+  margin-bottom: 4em;
+}
+.mar-bot-md {
+  margin-bottom: 2em;
+}
+.mar-bot-sm {
+  margin-bottom: 1em;
+}
+.mar-bot-xs {
+  margin-bottom: .5em;
+}
+.box-15 {
+  width: 15%;
+}
+.box-20 {
+  width: 20%;
+}
+.box-30 {
+  width: 30%;
+}
+.box-50 {
+  width: 50%;
+}
+.box-70 {
+  width: 70%;
+}
+.box-80 {
+  width: 80%;
+}
+.box-90 {
+  width: 90%;
+}
+.box-100 {
+  width: 100%;
+}
+.font-10 {
+  font-size: 1em;
+}
+.font-13 {
+  font-size: 1.3em;
+}
+.font-16 {
+  font-size: 1.6em;
+}
+.font-20 {
+  font-size: 2em;
+}
+.font-30 {
+  font-size: 3em;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+.text-success {
+  color: green;
+}
+.text-error {
+  color: red;
+}
+.text-link {
+  color: blue;
+  font-weight: bold;
+  font-style: italic;
+}
+.rounded {
+  border-radius: 10px;
+}
+.shadow {
+  box-shadow: 0px 0px 30px 10px rgba(0,0,0,0.5);
+}
