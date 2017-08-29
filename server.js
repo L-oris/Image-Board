@@ -64,7 +64,7 @@ app.get('/images',function(req, res){
   });
 });
 
-function uploadToS3(req,res){
+function uploadToS3(req,res,next){
   const s3Request = client.put(req.file.filename,{
     'Content-Type': req.file.mimetype,
     'Content-Length': req.file.size,
@@ -72,15 +72,19 @@ function uploadToS3(req,res){
   });
   fs.createReadStream(req.file.path).pipe(s3Request);
   s3Request.on('response', function(s3Response){
-    const wasSuccessful = s3Response.statusCode === 200;
-    res.json({success: wasSuccessful});
+    if(s3Response.statusCode === 200){
+      res.json({success: true});
+    } else {
+      next();
+    }
   });
 }
 
-app.post('/upload',uploader.single('file'),function(req,res){
+app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   // If nothing went wrong the file is already in the uploads directory (because of 'uploader' middleware)
   if(req.file){
-    uploadToS3(req,res);
+    console.log('file uploaded');
+    res.json({success: true});
   } else {
     res.json({success: false});
   }
