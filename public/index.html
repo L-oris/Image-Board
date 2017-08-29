@@ -12,17 +12,17 @@
 
   <template id="home">
     <div class="container">
-      <div class="head">
+      <div class="navbar">
         <h1>Image Board</h1>
       </div>
       <ul class="cards">
         {{#each images}}
           <li class="card">
             <img class="card-img" src="{{image}}">
-              <div class="card-overlay">
-                <h4 class="card-title">{{title}}</h4>
-                <p class="card-description">{{description}}</p>
-              </div>
+            <div class="card-overlay">
+              <h4 class="card-title">{{title}}</h4>
+              <p class="card-description">{{description}}</p>
+            </div>
           </li>
         {{/each}}
       </ul>
