@@ -62,6 +62,13 @@ const UploadModel = Backbone.Model.extend({
 const UploadView = Backbone.View.extend({
   initialize: function(){
     this.render();
+    //when new file has uploaded, return to HomeView
+    this.model.on('fileUploaded',function(){
+      new HomeView({
+        model: new HomeModel(),
+        el: '#main'
+      }).render();
+    });
   },
   render: function(){
     const html = Handlebars.templates.upload({});
