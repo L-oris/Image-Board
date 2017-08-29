@@ -4,21 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Board</title>
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
   <template id="home">
     <div class="container">
-      <div class="head text-center">
+      <div class="head">
         <h1>Image Board</h1>
       </div>
       <ul class="cards">
         {{#each images}}
-          <li class="card text-center">
+          <li class="card">
             <img class="card-img" src="{{image}}">
-              <h4 class="card-title">{{title}}</h4>
-              <p class="card-description">{{description}}</p>
+              <div class="card-overlay">
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-description">{{description}}</p>
+              </div>
           </li>
         {{/each}}
       </ul>
