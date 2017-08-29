@@ -64,10 +64,7 @@ const UploadView = Backbone.View.extend({
     this.render();
     //when new file has uploaded, return to HomeView
     this.model.on('fileUploaded',function(){
-      new HomeView({
-        model: new HomeModel(),
-        el: '#main'
-      }).render();
+      router.navigate('',true);
     });
   },
   render: function(){
