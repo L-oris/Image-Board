@@ -26,6 +26,11 @@ app.get('/images',function(req, res){
   });
 });
 
+app.post('/upload',function(req,res){
+  console.log('upload request received!');
+  res.send('upload request received!')
+});
+
 //turn on server
 const port = 8080;
 app.listen(port, function(){console.log(`Listening on port ${port}`)});

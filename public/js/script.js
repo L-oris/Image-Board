@@ -6,6 +6,7 @@ Array.prototype.slice.call(templates).forEach(function(tmpl) {
 });
 
 
+
 //Handle data for home page
 const HomeModel = Backbone.Model.extend({
   initialize: function(){
@@ -29,6 +30,31 @@ const HomeView = Backbone.View.extend({
   }
 });
 
+
+
+const UploadModel = Backbone.Model.extend({
+  url: '/upload',
+  save: function(){
+    //use the browser's built in FormData
+    const formData = new FormData();
+    //append there data that model owns
+    formData.append('title',this.get('title'));
+    formData.append('file',this.get('file'));
+    //make ajax request to server with that data
+    const model = this;
+    $.ajax({
+      url: this.url,
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(){
+        model.trigger('fileUploaded');
+      }
+    });
+  }
+});
+
 //create View for upload page --> allow to upload new images using <input type="file"/>
 const UploadView = Backbone.View.extend({
   initialize: function(){
@@ -40,7 +66,12 @@ const UploadView = Backbone.View.extend({
   },
   events: {
     'click button': function(e){
-      console.log('button clicked in BAckbone');
+      //set data from <input>s into model, then 'save()' that is making ajax 'POST' request to server
+      this.model.set({
+        title: this.$el.find('input[name="title"]').val(),
+        file: this.$el.find('input[type="file"]').prop('files')[0],
+      });
+      this.model.save();
     }
   }
 });
@@ -61,7 +92,7 @@ const Router = Backbone.Router.extend({
   },
   upload: function(){
     new UploadView({
-      model: {},
+      model: new UploadModel(),
       el: '#main'
     }).render();
   }
