@@ -8,6 +8,12 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+#upload {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .container {
   display: grid;
   grid-template-rows: 50px 2em 1fr 2em;

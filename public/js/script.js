@@ -102,7 +102,7 @@ const Router = Backbone.Router.extend({
   upload: function(){
     new UploadView({
       model: new UploadModel(),
-      el: '#main'
+      el: '#upload'
     }).render();
   }
 });
