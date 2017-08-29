@@ -11,17 +11,20 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-  <div class="container">
     <div class="navbar">
-      <h3 class="navbar-logo">Image Board</h3>
-      <div class="hidden-menu"><button><i class="fa fa-bars" aria-hidden="true"></i></button></div>
+      <div class="navbar-logo">
+        <a href="/#">
+          <i class="fa fa-ils fa-2x" style="vertical-align: middle" aria-hidden="true"></i>
+          <h3 class="inline">Image Board</h3>
+        </a>
+      </div>
+      <div class="hidden-menu-btn"><a href="/#upload"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
     </div>
 
     <!-- container for Handlebars content -->
     <div id="main"></div>
     <div id="upload"></div>
 
-  </div>
 
 
   <template id="home">

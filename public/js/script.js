@@ -94,12 +94,18 @@ const Router = Backbone.Router.extend({
     'upload': 'upload',
   },
   home: function(){
+    //remove previous event handlers
+    $('#main').off();
+    $('#upload').hide();
     new HomeView({
       model: new HomeModel(),
       el: '#main'
     }).render();
   },
   upload: function(){
+    //remove previous event handlers
+    $('#main').off();
+    $('#upload').show();
     new UploadView({
       model: new UploadModel(),
       el: '#upload'
