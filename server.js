@@ -72,8 +72,8 @@ function uploadToS3(req,res,next){
   });
   fs.createReadStream(req.file.path).pipe(s3Request);
   s3Request.on('response', function(s3Response){
-    if(s3Response.statusCode === 200){
-      res.json({success: true});
+    if(s3Response.statusCode !== 200){
+      res.json({success: false});
     } else {
       next();
     }
@@ -81,13 +81,8 @@ function uploadToS3(req,res,next){
 }
 
 app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
-  // If nothing went wrong the file is already in the uploads directory (because of 'uploader' middleware)
-  if(req.file){
-    console.log('file uploaded');
-    res.json({success: true});
-  } else {
-    res.json({success: false});
-  }
+  //at this point image is saved into 'uploads' directory and uploaded to AWS S3
+  res.json({success:true});
 });
 
 //turn on server
