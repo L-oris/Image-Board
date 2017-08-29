@@ -29,6 +29,7 @@
         <li class="card">
           <img class="card-img" src="{{image}}">
           <div class="card-overlay">
+            <p class="card-user">{{username}}</p>
             <h4 class="card-title">{{title}}</h4>
             <p class="card-description">{{description}}</p>
           </div>
@@ -40,7 +41,7 @@
   <template id="upload">
     <input type="text" name="title" placeholder="title">
     <textarea name="description" placeholder="description"></textarea>
-    <input type="text" name="name" placeholder="name">
+    <input type="text" name="username" placeholder="name">
     <input type="file">
     <button type="button">Upload</button>
   </template>

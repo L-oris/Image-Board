@@ -41,7 +41,7 @@ const UploadModel = Backbone.Model.extend({
     //append there data that model owns
     formData.append('title',this.get('title'));
     formData.append('description',this.get('description'));
-    formData.append('name',this.get('name'));
+    formData.append('username',this.get('username'));
     formData.append('file',this.get('file'));
     //make ajax request to server with that data
     const model = this;
@@ -62,7 +62,7 @@ const UploadModel = Backbone.Model.extend({
 const UploadView = Backbone.View.extend({
   initialize: function(){
     this.render();
-    //when new file has uploaded, return to HomeView
+    //when new file has uploaded, return to HomeView --> listen for events on model
     this.model.on('fileUploaded',function(){
       router.navigate('',true);
     });
@@ -77,7 +77,7 @@ const UploadView = Backbone.View.extend({
       this.model.set({
         title: this.$el.find('input[name="title"]').val(),
         description: this.$el.find('textarea[name="description"]').val(),
-        name: this.$el.find('input[name="name"]').val(),
+        username: this.$el.find('input[name="username"]').val(),
         file: this.$el.find('input[type="file"]').prop('files')[0],
       });
       this.model.save();

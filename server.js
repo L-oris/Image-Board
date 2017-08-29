@@ -82,10 +82,10 @@ function uploadToS3(req,res,next){
 
 app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   //at this point image is saved into 'uploads' directory and uploaded to AWS S3. Now we store image data into database
-  const {name,title,description} = req.body;
+  const {username,title,description} = req.body;
   const {filename} = req.file;
   const query = 'INSERT INTO images (image,username,title,description) VALUES ($1,$2,$3,$4)';
-  db.query(query,[filename,name,title,description])
+  db.query(query,[filename,username,title,description])
   .then(function(){
     res.json({success:true});
   })
