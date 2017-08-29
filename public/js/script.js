@@ -6,7 +6,7 @@ Array.prototype.slice.call(templates).forEach(function(tmpl) {
 });
 
 
-//create Model to handle data for home page
+//Handle data for home page
 const HomeModel = Backbone.Model.extend({
   initialize: function(){
     this.fetch();
@@ -29,7 +29,7 @@ const HomeView = Backbone.View.extend({
   }
 });
 
-//create View for uploading images to server
+//create View for upload page --> allow to upload new images using <input type="file"/>
 const UploadView = Backbone.View.extend({
   initialize: function(){
     this.render();
@@ -46,21 +46,27 @@ const UploadView = Backbone.View.extend({
 });
 
 
-const homeView = new HomeView({
-  model: new HomeModel(),
-  el: '#main'
-});
-const uploadView = new UploadView({
-  el: '#uploadField'
-});
 
-
-//create basic router
+//create Router
 const Router = Backbone.Router.extend({
   routes: {
-    '': 'home'
+    '': 'home',
+    'upload': 'upload',
   },
-  home:function(){
-    homeView.render();
+  home: function(){
+    new HomeView({
+      model: new HomeModel(),
+      el: '#main'
+    }).render();
+  },
+  upload: function(){
+    new UploadView({
+      model: {},
+      el: '#main'
+    }).render();
   }
 });
+
+//instantiate Router and start watching for url changes
+const router = new Router();
+Backbone.history.start();
