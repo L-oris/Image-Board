@@ -29,9 +29,29 @@ const HomeView = Backbone.View.extend({
   }
 });
 
+//create View for uploading images to server
+const UploadView = Backbone.View.extend({
+  initialize: function(){
+    this.render();
+  },
+  render: function(){
+    const html = Handlebars.templates.upload({});
+    this.$el.html(html);
+  },
+  events: {
+    'click button': function(e){
+      console.log('button clicked in BAckbone');
+    }
+  }
+});
+
+
 const homeView = new HomeView({
   model: new HomeModel(),
   el: '#main'
+});
+const uploadView = new UploadView({
+  el: '#uploadField'
 });
 
 
