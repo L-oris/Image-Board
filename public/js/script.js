@@ -25,6 +25,7 @@ const HomeView = Backbone.View.extend({
     })
   },
   render: function(){
+    //fill template with data from model, then fill the View with it
     const html = Handlebars.templates.home(this.model.toJSON());
     this.$el.html(html);
   }
@@ -39,6 +40,8 @@ const UploadModel = Backbone.Model.extend({
     const formData = new FormData();
     //append there data that model owns
     formData.append('title',this.get('title'));
+    formData.append('description',this.get('description'));
+    formData.append('name',this.get('name'));
     formData.append('file',this.get('file'));
     //make ajax request to server with that data
     const model = this;
@@ -66,9 +69,11 @@ const UploadView = Backbone.View.extend({
   },
   events: {
     'click button': function(e){
-      //set data from <input>s into model, then 'save()' that is making ajax 'POST' request to server
+      //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
       this.model.set({
         title: this.$el.find('input[name="title"]').val(),
+        description: this.$el.find('textarea[name="description"]').val(),
+        name: this.$el.find('input[name="name"]').val(),
         file: this.$el.find('input[type="file"]').prop('files')[0],
       });
       this.model.save();
