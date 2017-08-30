@@ -62,7 +62,7 @@ const UploadModel = Backbone.Model.extend({
 const UploadView = Backbone.View.extend({
   initialize: function(){
     this.render();
-    //when new file has uploaded, return to HomeView --> listen for events on model
+    //when new file has uploaded, re-render HomeView with new data --> listen for events on model
     this.model.on('fileUploaded',function(){
       router.navigate('',true);
     });
@@ -81,6 +81,7 @@ const UploadView = Backbone.View.extend({
         file: this.$el.find('input[type="file"]').prop('files')[0],
       });
       this.model.save();
+      router.navigate('',true);
     }
   }
 });
