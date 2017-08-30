@@ -42,12 +42,12 @@ const client = knox.createClient({
   key: secrets.AWS_KEY,
   secret: secrets.AWS_SECRET,
   bucket: 'image-board-loris'
-});
+})
 
 //body-parser
 app.use(require('body-parser').urlencoded({
     extended: false
-}));
+}))
 
 //serve static files (as well as Backbone app)
 app.use(express.static(__dirname + '/public'));
@@ -63,10 +63,9 @@ app.get('/images',function(req, res){
     res.json({'images':dbimages})
   })
   .catch(function(err){
-    console.log(err);
-    res.send('Error!');
+    throw `Error getting images from database`;
   });
-});
+})
 
 function uploadToS3(req,res,next){
   const s3Request = client.put(req.file.filename,{
@@ -88,15 +87,18 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   //at this point image is saved into 'uploads' directory and uploaded to AWS S3. Now we store image data into database
   const {username,title,description} = req.body;
   const {filename} = req.file;
+  if(!(username,title,description,filename)){
+    throw 'Incorrect fields provided';
+  };
   const query = 'INSERT INTO images (image,username,title,description) VALUES ($1,$2,$3,$4)';
   db.query(query,[filename,username,title,description])
   .then(function(){
     res.json({success:true});
   })
   .catch(function(err){
-    res.json({success:false});
+    throw `Error adding new image into database`;
   });
-});
+})
 
 app.get('/image/:id',function(req,res){
   //grab all useful data relative to selected image
@@ -120,24 +122,36 @@ app.get('/image/:id',function(req,res){
     })
   })
   .catch(function(err){
-    console.log(err);
-    res.send('error');
+    throw `Error getting image into database`;
   })
-});
+})
 
 app.post('/image/:id',function(req,res){
   //store new comment to database
   const {image_id,user_comment,comment} = req.body;
+  if(!(image_id,user_comment,comment)){
+    throw 'Incorrect fields provided for posting new comment';
+  };
   const query = 'INSERT INTO comments (image_id,user_comment,comment) VALUES ($1,$2,$3)';
   db.query(query,[image_id,user_comment,comment])
   .then(function(idData){
     res.json({id:idData.rows[0].id});
   })
   .catch(function(err){
-    res.json({success:false});
+    throw `Error adding new comment into database`;
   });
-});
+})
 
+//catch all missing routes
+app.all('*',function(req,res){
+  res.status(404).json({success: false})
+})
+
+//handle errors
+app.use(function (err, req, res, next) {
+  console.error(err);
+  res.json({success:false})
+})
 
 //turn on server
 const port = 8080;
