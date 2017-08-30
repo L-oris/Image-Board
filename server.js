@@ -100,18 +100,17 @@ app.get('/image/:id',function(req,res){
   const query = 'SELECT image,username,title,description FROM images WHERE id = $1';
   db.query(query,[id])
   .then(function(imageData){
+    //add path to AWS
+    imageData.rows[0].image = s3Url+imageData.rows[0].image;
     const query = 'SELECT user_comment,comment FROM comments WHERE image_id = $1';
     return db.query(query,[id])
     .then(function(commentsData){
-      return {
+      res.json({
         ...imageData.rows[0],
         comments: commentsData.rows
-      }
+      })
     })
-    .catch(function(err){console.log(err);})
-  })
-  .then(function(imageDetails){
-    res.json(imageDetails)
+    .catch(function(err){throw err})
   })
   .catch(function(err){
     console.log(err);
