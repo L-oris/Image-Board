@@ -5,7 +5,12 @@ Array.prototype.slice.call(templates).forEach(function(tmpl) {
     Handlebars.templates[tmpl.id] = Handlebars.compile(tmpl.innerHTML.replace(/{{&gt;/g, '{{>'));
 });
 
-
+//remove previous event handlers on current view before mounting a new one
+const oldSetElement = Backbone.View.prototype.setElement;
+Backbone.View.prototype.setElement = function(el){
+  $(el).off();
+  oldSetElement.call(this,el);
+};
 
 //Handle data for home page
 const HomeModel = Backbone.Model.extend({
@@ -52,7 +57,8 @@ const UploadModel = Backbone.Model.extend({
       processData: false,
       contentType: false,
       success: function(){
-        model.trigger('fileUploaded');
+        //render Home again with new data
+        router.navigate('',true);
       }
     });
   }
@@ -72,16 +78,18 @@ const UploadView = Backbone.View.extend({
     this.$el.html(html);
   },
   events: {
-    'click button': function(e){
-      //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
-      this.model.set({
-        title: this.$el.find('input[name="title"]').val(),
-        description: this.$el.find('textarea[name="description"]').val(),
-        username: this.$el.find('input[name="username"]').val(),
-        file: this.$el.find('input[type="file"]').prop('files')[0],
-      });
-      this.model.save();
-      router.navigate('',true);
+    'click button': 'uploadImage'
+  },
+  uploadImage: function(e){
+    //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
+    const title = this.$el.find('input[name="title"]').val();
+    const description = this.$el.find('textarea[name="description"]').val();
+    const username = this.$el.find('input[name="username"]').val();
+    const file = this.$el.find('input[type="file"]').prop('files')[0];
+    if(!(title&&description&&username&&file)){
+      $('.upload-fields').prepend('<h4 style="color: red">All Fields are required</h4>');
+    } else {
+      this.model.set({title,description,username,file}).save();
     }
   }
 });
@@ -95,18 +103,13 @@ const Router = Backbone.Router.extend({
     'upload': 'upload',
   },
   home: function(){
-    //remove previous event handlers
-    $('#main').off();
-    $('#upload').hide();
+    $('#upload').empty();
     new HomeView({
       model: new HomeModel(),
       el: '#main'
     }).render();
   },
   upload: function(){
-    //remove previous event handlers
-    $('#main').off();
-    $('#upload').show();
     new UploadView({
       model: new UploadModel(),
       el: '#upload'
