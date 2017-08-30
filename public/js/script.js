@@ -90,8 +90,8 @@ const UploadView = Backbone.View.extend({
       $('.upload-fields .text-error').show();
     } else {
       this.model.set({title,description,username,file}).save();
-      $('.upload-fields .text-error').hide();
-      
+      $('.upload-fields button, .upload-fields .text-error').hide();
+      $('.upload-fields .loader').show();
     }
   }
 });
