@@ -95,8 +95,29 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
 });
 
 app.get('/image/:id',function(req,res){
-  console.log('get request arrived for an image!');
-  res.json({"myImage":"is here"})
+  //grab all useful data relative to selected image
+  const {id} = req.params;
+  const query = 'SELECT image,username,title,description FROM images WHERE id = $1';
+  db.query(query,[id])
+  .then(function(imageData){
+    const query = 'SELECT user_comment,comment FROM comments WHERE image_id = $1';
+    return db.query(query,[id])
+    .then(function(commentsData){
+      return {
+        ...imageData.rows[0],
+        comments: commentsData.rows
+      }
+    })
+    .catch(function(err){console.log(err);})
+  })
+  .then(function(imageDetails){
+    res.json(imageDetails)
+  })
+  .catch(function(err){
+    console.log(err);
+    res.send('error');
+  })
+
 })
 
 

@@ -97,7 +97,10 @@ const UploadView = Backbone.View.extend({
 });
 
 const ImageModel = Backbone.Model.extend({
-  url: '/image/:id',
+  url: function(){
+    //when requesting data from server, pass down the image 'id' in order to query database
+    return `/image/${this.get('id')}`;
+  },
   initialize: function(){
     this.fetch();
   }
@@ -140,7 +143,7 @@ const Router = Backbone.Router.extend({
   },
   image: function(id){
     new ImageView({
-      model: new ImageModel(),
+      model: new ImageModel({id:id}),
       el: '#main'
     }).render()
   }
