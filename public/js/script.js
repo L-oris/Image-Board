@@ -99,13 +99,19 @@ const UploadView = Backbone.View.extend({
 const ImageModel = Backbone.Model.extend({
   url: '/image/:id',
   initialize: function(){
-    this.model.fetch();
+    this.fetch();
   }
 });
 const ImageView = Backbone.View.extend({
+  initialize: function(){
+    const view = this;
+    //when new file has uploaded, re-render HomeView with new data --> listen for events on model
+    this.model.on('change',function(){
+      view.render();
+    });
+  },
   render: function(){
-    const html = Handlebars.templates.image({});
-    // const html = Handlebars.templates.image(this.model.toJSON());
+    const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
   },
 });
@@ -117,7 +123,7 @@ const Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'upload': 'upload',
-    'images/:id':'image'
+    'image/:id':'image'
   },
   home: function(){
     $('#upload').empty();
@@ -134,7 +140,7 @@ const Router = Backbone.Router.extend({
   },
   image: function(id){
     new ImageView({
-      model: {},
+      model: new ImageModel(),
       el: '#main'
     }).render()
   }

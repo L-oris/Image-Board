@@ -94,6 +94,11 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   });
 });
 
+app.get('/image/:id',function(req,res){
+  console.log('get request arrived for an image!');
+  res.json({"myImage":"is here"})
+})
+
 
 //turn on server
 const port = 8080;

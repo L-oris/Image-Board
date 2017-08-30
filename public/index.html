@@ -36,7 +36,7 @@
     <ul class="cards">
       {{#each images}}
         <li class="card">
-          <a href="#images/{{id}}">
+          <a href="#image/{{id}}">
             <img class="card-img" src="{{image}}">
             <div class="card-overlay">
               <p class="card-user">{{username}}</p>
@@ -78,6 +78,7 @@
   <template id="image">
     <div class="image-container">
       <h1>Here's your Image details!</h1>
+      <h4>{{myImage}}</h4>
     </div>
   </template>
 
