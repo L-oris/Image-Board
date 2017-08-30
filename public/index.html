@@ -84,8 +84,10 @@
       <br>
       <h3>Comments now!</h3>
       {{#each comments}}
-        <h6>User {{user_comment}}</h6>
-        <p>Comment {{comment}}</p>
+        <h6>User:: {{user_comment}}</h6>
+        <p>Comment:: {{comment}}</p>
+        <p>Created At:: {{created_at}}</p>
+        <br>
       {{/each}}
       <div class="error">
         <h4 class="text-error">All Fields are required</h4>
