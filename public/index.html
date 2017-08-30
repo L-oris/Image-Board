@@ -35,12 +35,14 @@
     <ul class="cards">
       {{#each images}}
         <li class="card">
-          <img class="card-img" src="{{image}}">
-          <div class="card-overlay">
-            <p class="card-user">{{username}}</p>
-            <h4 class="card-title">{{title}}</h4>
-            <p class="card-description">{{description}}</p>
-          </div>
+          <a href="#images/{{id}}">
+            <img class="card-img" src="{{image}}">
+            <div class="card-overlay">
+              <p class="card-user">{{username}}</p>
+              <h4 class="card-title">{{title}}</h4>
+              <p class="card-description">{{description}}</p>
+            </div>
+          </a>
         </li>
       {{/each}}
     </ul>
