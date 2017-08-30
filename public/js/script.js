@@ -96,6 +96,20 @@ const UploadView = Backbone.View.extend({
   }
 });
 
+const ImageModel = Backbone.Model.extend({
+  url: '/image/:id',
+  initialize: function(){
+    this.model.fetch();
+  }
+});
+const ImageView = Backbone.View.extend({
+  render: function(){
+    const html = Handlebars.templates.image({});
+    // const html = Handlebars.templates.image(this.model.toJSON());
+    this.$el.html(html);
+  },
+});
+
 
 
 //create Router
@@ -103,6 +117,7 @@ const Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'upload': 'upload',
+    'images/:id':'image'
   },
   home: function(){
     $('#upload').empty();
@@ -116,6 +131,12 @@ const Router = Backbone.Router.extend({
       model: new UploadModel(),
       el: '#upload'
     }).render();
+  },
+  image: function(){
+    new ImageView({
+      model: {},
+      el: '#main'
+    })
   }
 });
 
