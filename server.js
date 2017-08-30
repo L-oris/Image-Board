@@ -44,6 +44,10 @@ const client = knox.createClient({
   bucket: 'image-board-loris'
 });
 
+//body-parser
+app.use(require('body-parser').urlencoded({
+    extended: false
+}));
 
 //serve static files (as well as Backbone app)
 app.use(express.static(__dirname + '/public'));
@@ -116,8 +120,13 @@ app.get('/image/:id',function(req,res){
     console.log(err);
     res.send('error');
   })
+});
 
-})
+app.post('/image/:id',function(req,res){
+  console.log('post request arrived to server');
+  console.log('req.body',req.body);
+  res.send('hello')
+});
 
 
 //turn on server

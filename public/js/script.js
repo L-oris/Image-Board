@@ -63,7 +63,6 @@ const UploadModel = Backbone.Model.extend({
     });
   }
 });
-
 //create View for upload page --> allow to upload new images using <input type="file"/>
 const UploadView = Backbone.View.extend({
   initialize: function(){
@@ -103,13 +102,32 @@ const ImageModel = Backbone.Model.extend({
   },
   initialize: function(){
     this.fetch();
+  },
+  save: function(){
+    const formData = {
+      image_id: this.get('image_id'),
+      user_comment: this.get('user_comment'),
+      comment: this.get('comment')
+    };
+    //make ajax request to server with that data
+    const model = this;
+    $.ajax({
+      url: this.url(),
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(){
+        model.trigger('commentUploaded');
+      }
+    });
   }
 });
 const ImageView = Backbone.View.extend({
   initialize: function(){
     const view = this;
-    //when new file has uploaded, re-render HomeView with new data --> listen for events on model
-    this.model.on('change',function(){
+    //when new file has uploaded, re-render ImageView with new data --> listen for events on model
+    this.model.on('commentUploaded',function(){
       view.render();
     });
   },
