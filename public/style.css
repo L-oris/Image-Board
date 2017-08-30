@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
   font-family: 'Encode Sans Condensed', sans-serif;
-  background-color: rgba(45,45,45,1);
+  /*background-color: rgba(45,45,45,1);*/
 }
 ul {
   margin: 0;
@@ -40,7 +40,6 @@ a {
   margin: 0 auto;
   animation: spin 2s linear infinite;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -52,6 +51,9 @@ header {
   width: 100vw;
   z-index: 2;
   border-bottom: 10px solid rgb(45,45,45);
+}
+section {
+  margin-top: 200px;
 }
 .navbar {
   display: flex;
@@ -123,7 +125,7 @@ header {
 }
 .cards {
   width: 85%;
-  margin: 80px auto 1em;
+  margin: 1em auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 200px;

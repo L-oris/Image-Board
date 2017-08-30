@@ -132,11 +132,11 @@ const Router = Backbone.Router.extend({
       el: '#upload'
     }).render();
   },
-  image: function(){
+  image: function(id){
     new ImageView({
       model: {},
       el: '#main'
-    })
+    }).render()
   }
 });
 
