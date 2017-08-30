@@ -87,9 +87,11 @@ const UploadView = Backbone.View.extend({
     const username = this.$el.find('input[name="username"]').val();
     const file = this.$el.find('input[type="file"]').prop('files')[0];
     if(!(title&&description&&username&&file)){
-      $('.upload-fields').prepend('<h4 style="color: red">All Fields are required</h4>');
+      $('.upload-fields .text-error').show();
     } else {
       this.model.set({title,description,username,file}).save();
+      $('.upload-fields .text-error').hide();
+      
     }
   }
 });
