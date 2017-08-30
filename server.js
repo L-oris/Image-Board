@@ -123,9 +123,17 @@ app.get('/image/:id',function(req,res){
 });
 
 app.post('/image/:id',function(req,res){
-  console.log('post request arrived to server');
-  console.log('req.body',req.body);
-  res.send('hello')
+  //store new comment to database
+  const {image_id,user_comment,comment} = req.body;
+  const query = 'INSERT INTO comments (image_id,user_comment,comment) VALUES ($1,$2,$3)';
+  db.query(query,[image_id,user_comment,comment])
+  .then(function(){
+    res.json({success:true});
+  })
+  .catch(function(err){
+    res.json({success:false});
+  });
+
 });
 
 

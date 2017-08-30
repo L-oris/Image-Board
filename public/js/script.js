@@ -95,6 +95,8 @@ const UploadView = Backbone.View.extend({
   }
 });
 
+
+
 const ImageModel = Backbone.Model.extend({
   url: function(){
     //when requesting data from server, pass down the image 'id' in order to query database
@@ -115,8 +117,6 @@ const ImageModel = Backbone.Model.extend({
       url: this.url(),
       method: 'POST',
       data: formData,
-      processData: false,
-      contentType: false,
       success: function(){
         model.trigger('commentUploaded');
       }
@@ -126,8 +126,12 @@ const ImageModel = Backbone.Model.extend({
 const ImageView = Backbone.View.extend({
   initialize: function(){
     const view = this;
-    //when new file has uploaded, re-render ImageView with new data --> listen for events on model
+    //re-render 'ImageView' when something on model changes and when new comment uploaded
+    this.model.on('change',function(){
+      view.render();
+    });
     this.model.on('commentUploaded',function(){
+      console.log('comment successfully uploaded');
       view.render();
     });
   },
