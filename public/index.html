@@ -11,19 +11,23 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="navbar">
-      <div class="navbar-logo">
-        <a href="/#">
-          <i class="fa fa-ils fa-2x" style="vertical-align: middle" aria-hidden="true"></i>
-          <h3 class="inline">Image Board</h3>
-        </a>
+    <header>
+      <div class="navbar">
+        <div class="navbar-logo">
+          <a href="/#">
+            <i class="fa fa-ils fa-2x" style="vertical-align: middle" aria-hidden="true"></i>
+            <h3 class="inline">Image Board</h3>
+          </a>
+        </div>
+        <div class="hidden-menu-btn"><a href="/#upload"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
       </div>
-      <div class="hidden-menu-btn"><a href="/#upload"><i class="fa fa-bars" aria-hidden="true"></i></a></div>
-    </div>
+
+      <!-- container for Handlebars content -->
+      <div id="upload"></div>
+    </header>
 
     <!-- container for Handlebars content -->
     <div id="main"></div>
-    <div id="upload"></div>
 
 
 
@@ -43,11 +47,25 @@
   </template>
 
   <template id="upload">
-    <input type="text" name="title" placeholder="title">
-    <textarea name="description" placeholder="description"></textarea>
-    <input type="text" name="username" placeholder="name">
-    <input type="file">
-    <button type="button">Upload</button>
+    <div class="upload-fields">
+      <div class="upload-field">
+        <label for="title">Title</label>
+        <input type="text" name="title">
+      </div>
+      <div class="upload-field">
+        <label for="description">Description</label>
+        <textarea name="description"></textarea>
+      </div>
+      <div class="upload-field">
+        <label for="username">User</label>
+        <input type="text" name="username">
+      </div>
+      <div class="choosefile">
+        <input type="file" name="choose" id="choose" class="inputfile">
+        <label for="choose">Choose a file</label>
+      </div>
+      <button type="button" name="file" class="block-center">Upload</button>
+    </div>
   </template>
 
   <script type="text/javascript" src="js/handlebars.min.js"></script>
