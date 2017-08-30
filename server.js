@@ -109,10 +109,13 @@ app.get('/image/:id',function(req,res){
     const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1';
     return db.query(query,[id])
     .then(function(commentsData){
+      chronologicallySortedComments = commentsData.rows.sort(function(a,b){
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
       res.json({
         id:id,
         ...imageData.rows[0],
-        comments: commentsData.rows
+        comments: chronologicallySortedComments
       })
     })
   })

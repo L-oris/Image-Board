@@ -143,6 +143,7 @@ const ImageView = Backbone.View.extend({
     const image_id = this.model.get('id');
     const user_comment = this.$el.find('input[name="user_comment"]').val();
     const comment = this.$el.find('textarea[name="comment"]').val();
+
     if(!(image_id&&user_comment&&comment)){
       $('.image-container .text-error').show();
     } else {
