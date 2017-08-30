@@ -118,7 +118,7 @@ const ImageModel = Backbone.Model.extend({
       method: 'POST',
       data: formData,
       success: function(){
-        model.trigger('commentUploaded');
+        model.fetch();
       }
     });
   }
@@ -126,12 +126,8 @@ const ImageModel = Backbone.Model.extend({
 const ImageView = Backbone.View.extend({
   initialize: function(){
     const view = this;
-    //re-render 'ImageView' when something on model changes and when new comment uploaded
+    //re-render 'ImageView' when anything on ImageModel changes
     this.model.on('change',function(){
-      view.render();
-    });
-    this.model.on('commentUploaded',function(){
-      console.log('comment successfully uploaded');
       view.render();
     });
   },
@@ -151,7 +147,7 @@ const ImageView = Backbone.View.extend({
       $('.image-container .text-error').show();
     } else {
       this.model.set({image_id,user_comment,comment}).save();
-      $('.image-container #upload-comment, .image-container .text-error').hide();
+      $('#upload-comment, .image-container .text-error').hide();
       $('.image-container .loader').show();
     }
   }

@@ -127,13 +127,12 @@ app.post('/image/:id',function(req,res){
   const {image_id,user_comment,comment} = req.body;
   const query = 'INSERT INTO comments (image_id,user_comment,comment) VALUES ($1,$2,$3)';
   db.query(query,[image_id,user_comment,comment])
-  .then(function(){
-    res.json({success:true});
+  .then(function(idData){
+    res.json({id:idData.rows[0].id});
   })
   .catch(function(err){
     res.json({success:false});
   });
-
 });
 
 
