@@ -117,6 +117,22 @@ const ImageView = Backbone.View.extend({
     const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
   },
+  events: {
+    'click #upload-comment': 'uploadComment'
+  },
+  uploadComment: function(){
+    //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
+    const image_id = this.model.get('id');
+    const user_comment = this.$el.find('input[name="user_comment"]').val();
+    const comment = this.$el.find('textarea[name="comment"]').val();
+    if(!(image_id&&user_comment&&comment)){
+      $('.image-container .text-error').show();
+    } else {
+      this.model.set({image_id,user_comment,comment}).save();
+      $('.image-container #upload-comment, .image-container .text-error').hide();
+      $('.image-container .loader').show();
+    }
+  }
 });
 
 

@@ -106,11 +106,11 @@ app.get('/image/:id',function(req,res){
     return db.query(query,[id])
     .then(function(commentsData){
       res.json({
+        id:id,
         ...imageData.rows[0],
         comments: commentsData.rows
       })
     })
-    .catch(function(err){throw err})
   })
   .catch(function(err){
     console.log(err);
