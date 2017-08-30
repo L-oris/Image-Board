@@ -78,7 +78,15 @@
   <template id="image">
     <div class="image-container">
       <h1>Here's your Image details!</h1>
-      <h4>{{myImage}}</h4>
+      <img src="{{image}}" alt="{{title}}">
+      <h2>{{title}}</h2>
+      <h5>{{description}}</h5>
+      <br>
+      <h3>Comments now!</h3>
+      {{#each comments}}
+        <h6>User {{user_comment}}</h6>
+        <p>Comment {{comment}}</p>
+      {{/each}}
     </div>
   </template>
 

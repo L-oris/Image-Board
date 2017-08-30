@@ -156,6 +156,11 @@ section {
   margin-bottom: 0
 }
 
+.image-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
 @media screen and (min-width: 768px){
   header {
     font-size: 1.3em;
