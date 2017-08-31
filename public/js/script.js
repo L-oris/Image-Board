@@ -1,3 +1,9 @@
+//setup variables (must be equal on server-side)
+//set number of images you wanna first load on 'HomeView' and number of comments you wanna first load on 'ImageView'
+const imagesLoaded = 6;
+const commentsLoaded = 10;
+
+
 //set up Handlebars
 Handlebars.templates = Handlebars.templates || {};
 const templates = document.querySelectorAll('template');
@@ -17,7 +23,6 @@ Backbone.View.prototype.setElement = function(el){
 //Handle data for home page
 const HomeModel = Backbone.Model.extend({
   initialize: function(){
-    this.set('page',1);
     this.fetch();
   },
   url: function(){
@@ -25,7 +30,7 @@ const HomeModel = Backbone.Model.extend({
     if(!(this.get('images'))){
       return `/images/0`
     }
-    return `/images/${this.get('images').length/6}`
+    return `/images/${this.get('images').length/imagesLoaded}`
   }
 });
 
@@ -50,7 +55,7 @@ const HomeView = Backbone.View.extend({
     $.get(this.model.url(),(data)=>{
       this.model.set('images',[...this.model.get('images'),...data.images]);
       //hide the 'more-images' button if no other images to display
-      if(data.images.length<6){
+      if(data.images.length<imagesLoaded){
         $('#more-images').hide();
       }
     })
@@ -101,7 +106,7 @@ const UploadView = Backbone.View.extend({
     'click button': 'uploadImage'
   },
 
-  uploadImage: function(e){
+  uploadImage: function(){
     //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
     const title = this.$el.find('input[name="title"]').val();
     const description = this.$el.find('textarea[name="description"]').val();
@@ -125,7 +130,7 @@ const ImageModel = Backbone.Model.extend({
     if(!(this.get('comments'))){
       return `/image/${this.get('id')}/0`;
     }
-    return `/image/${this.get('id')}/${this.get('comments').length/10}`
+    return `/image/${this.get('id')}/${this.get('comments').length/commentsLoaded}`
   },
   initialize: function(){
     this.fetch();
@@ -186,7 +191,7 @@ const ImageView = Backbone.View.extend({
     $.get(this.model.url(),(data)=>{
       this.model.set('comments',[...this.model.get('comments'),...data.comments]);
       //hide the 'more-images' button if no other images to display
-      if(data.comments.length<10){
+      if(data.comments.length<commentsLoaded){
         $('#more-comments').hide();
       }
     })

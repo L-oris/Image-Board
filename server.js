@@ -1,3 +1,9 @@
+//setup variables (must be equal on client-side)
+//set required number of images retrieved from database per time
+const imagesLoaded = 6;
+//set required number of comments retrieved from database per time
+const commentsLoaded = 10;
+
 const express = require('express'),
       app = express(),
       multer = require('multer'),
@@ -53,11 +59,9 @@ app.use(require('body-parser').urlencoded({
 app.use(express.static(__dirname + '/public'));
 
 app.get('/images/:pageNumber',function(req, res){
-  //set required number of images retrieved from database
-  const imagesRetrieved = 6;
   const {pageNumber} = req.params;
   //get data from server
-  db.query('SELECT * FROM images ORDER BY created_at DESC LIMIT $1 OFFSET $2',[imagesRetrieved,imagesRetrieved*pageNumber])
+  db.query('SELECT * FROM images ORDER BY created_at DESC LIMIT $1 OFFSET $2',[imagesLoaded,imagesLoaded*pageNumber])
   .then(function(data){
     dbimages = data.rows.map(function(item){
       item.image = s3Url+item.image;
@@ -106,8 +110,6 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
 
 //grab all useful data relative to selected image
 app.get('/image/:id/:pageNumber',function(req,res){
-  //set required number of comments retrieved from database
-  const commentsRetrieved = 10;
   const {id,pageNumber} = req.params;
   const query = 'SELECT image,username,title,description FROM images WHERE id = $1';
   db.query(query,[id])
@@ -115,7 +117,7 @@ app.get('/image/:id/:pageNumber',function(req,res){
     //add path to AWS
     imageData.rows[0].image = s3Url+imageData.rows[0].image;
     const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3';
-    return db.query(query,[id,commentsRetrieved,commentsRetrieved*pageNumber])
+    return db.query(query,[id,commentsLoaded,commentsLoaded*pageNumber])
     .then(function(commentsData){
       res.json({
         id:id,
