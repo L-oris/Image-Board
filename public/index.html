@@ -77,18 +77,10 @@
 
   <template id="image">
     <div class="image-container">
-      <h1>Here's your Image details!</h1>
-      <img src="{{image}}" alt="{{title}}">
-      <h2>{{title}}</h2>
-      <h5>{{description}}</h5>
-      <br>
+      <h4 class="image-user">By {{username}}</h4>
+      <img class="image-img" src="{{image}}" alt="{{title}}">
+      <h2 class="image-title">{{title}}</h2>
       <h3>Comments now!</h3>
-      {{#each comments}}
-        <h6>User:: {{user_comment}}</h6>
-        <p>Comment:: {{comment}}</p>
-        <p>Created At:: {{created_at}}</p>
-        <br>
-      {{/each}}
       <div class="error">
         <h4 class="text-error">All Fields are required</h4>
       </div>
@@ -99,6 +91,12 @@
       <textarea name="comment"></textarea>
       <button type="button" id="upload-comment">COMMENT!</button>
       <div class="loader"></div>
+      {{#each comments}}
+        <h6>User:: {{user_comment}}</h6>
+        <p>Comment:: {{comment}}</p>
+        <p>Created At:: {{created_at}}</p>
+        <br>
+      {{/each}}
     </div>
   </template>
 

@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
   font-family: 'Encode Sans Condensed', sans-serif;
-  /*background-color: rgba(45,45,45,1);*/
+  background-color: rgba(45,45,45,1);
 }
 ul {
   margin: 0;
@@ -53,7 +53,8 @@ header {
   border-bottom: 10px solid rgb(45,45,45);
 }
 section {
-  margin-top: 200px;
+  width: 90%;
+  margin: 80px auto 20px;
 }
 .navbar {
   display: flex;
@@ -63,7 +64,8 @@ section {
   padding: 0 1.5em;
   background-color: white;
 }
-.navbar-logo {
+.navbar-logo a {
+  color: indianred;
   font-size: 1.2em;
   font-family: 'Gloria Hallelujah', cursive;
 }
@@ -118,9 +120,9 @@ section {
   border: none;
   font-size: 2em;
   font-weight: bold;
-  color: green;
-  border-top: 2px solid green;
-  border-bottom: 3px solid green;
+  color: indianred;
+  border-top: 2px solid indianred;
+  border-bottom: 3px solid indianred;
   font-family: 'Gloria Hallelujah', cursive;
 }
 .cards {
@@ -128,7 +130,7 @@ section {
   margin: 1em auto;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 200px;
+  grid-template-rows: 220px;
   grid-gap: 15px 15px;
 }
 .card {
@@ -142,6 +144,39 @@ section {
   width: 100%;
   height: 150px;
   object-fit: cover;
+}
+.speech {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fff;
+  border: 5px solid #666;
+  border-radius: 30px;
+}
+p.speech:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 30px;
+  top: 140px;
+  border: 25px solid;
+  border-color: #666 transparent transparent #666;
+}
+p.speech:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 38px;
+  top: 140px;
+  border: 18px solid;
+  border-color: #fff transparent transparent #fff;
 }
 .card-overlay {
   display: flex;
@@ -157,8 +192,17 @@ section {
 }
 
 .image-container {
-  width: 80%;
-  margin: 0 auto;
+  color: white;
+}
+.image-user {
+  color: #d2d4d3;
+  font-style: italic;
+}
+.image-title {
+  font-family: 'Gloria Hallelujah', cursive;
+}
+.image-img {
+  width: 100%;
 }
 
 @media screen and (min-width: 768px){
