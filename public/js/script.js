@@ -139,7 +139,7 @@ const ImageModel = Backbone.Model.extend({
   save: function(){
     const model = this;
     $.ajax({
-      url: this.url(),
+      url: `/image/${this.get('id')}`,
       method: 'POST',
       data: this.get('newComment'),
       success: function(data){
