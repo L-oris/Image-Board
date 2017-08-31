@@ -168,7 +168,7 @@ const ImageView = Backbone.View.extend({
   events: {
     'click #upload-comment': 'uploadComment',
     'click #more-comments': 'getOtherComments',
-    'click #thumbs-up': 'likeImage'
+    'click #thumb-up': 'likeImage'
   },
 
   uploadComment: function(){
@@ -199,6 +199,10 @@ const ImageView = Backbone.View.extend({
 
   likeImage: function(){
     console.log('like button clicked');
+    const url = `/image/${this.model.get('id')}/thumbup`;
+    $.post(url,function(data){
+      console.log('like successfully submitted');
+    });
   }
 
 });

@@ -131,7 +131,20 @@ app.get('/image/:id/:pageNumber',function(req,res){
   })
 })
 
-app.post('/image/:id',function(req,res){
+function likeImage(req,res){
+
+  //TO DO!!
+  //when setting new image, also set its 'likes' value to zero!!!
+
+  const {id} = req.params;
+  const query = 'UPDATE images SET likes = likes+1 WHERE id=1';
+  res.send('ok');
+}
+
+app.post('/image/:id/:thumbup?',function(req,res){
+  if(req.params.thumbup){
+    return likeImage(req,res);
+  }
   //store new comment to database
   const {image_id,user_comment,comment} = req.body;
   if(!(image_id,user_comment,comment)){
