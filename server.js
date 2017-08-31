@@ -108,16 +108,13 @@ app.get('/image/:id',function(req,res){
   .then(function(imageData){
     //add path to AWS
     imageData.rows[0].image = s3Url+imageData.rows[0].image;
-    const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1';
+    const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1 ORDER BY created_at DESC';
     return db.query(query,[id])
     .then(function(commentsData){
-      chronologicallySortedComments = commentsData.rows.sort(function(a,b){
-        return new Date(b.created_at) - new Date(a.created_at);
-      });
       res.json({
         id:id,
         ...imageData.rows[0],
-        comments: chronologicallySortedComments
+        comments: commentsData.rows
       })
     })
   })

@@ -118,7 +118,7 @@ const ImageModel = Backbone.Model.extend({
       method: 'POST',
       data: formData,
       success: function(){
-        model.fetch();
+        model.throw('change');
       }
     });
   }
