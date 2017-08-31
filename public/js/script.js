@@ -167,7 +167,8 @@ const ImageView = Backbone.View.extend({
   },
   events: {
     'click #upload-comment': 'uploadComment',
-    'click #more-comments': 'getOtherComments'
+    'click #more-comments': 'getOtherComments',
+    'click #thumbs-up': 'likeImage'
   },
 
   uploadComment: function(){
@@ -194,6 +195,10 @@ const ImageView = Backbone.View.extend({
         $('#more-comments').hide();
       }
     })
+  },
+
+  likeImage: function(){
+    console.log('like button clicked');
   }
 
 });
