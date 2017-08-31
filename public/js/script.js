@@ -22,7 +22,6 @@ const HomeModel = Backbone.Model.extend({
 
 //create View for home page
 const HomeView = Backbone.View.extend({
-
   initialize: function(){
     var view = this;
     //re-render the view whenever model changes
@@ -40,7 +39,6 @@ const HomeView = Backbone.View.extend({
 
 
 const UploadModel = Backbone.Model.extend({
-
   url: '/upload',
   save: function(){
     //use the browser's built in FormData
@@ -117,7 +115,7 @@ const ImageModel = Backbone.Model.extend({
       method: 'POST',
       data: this.get('newComment'),
       success: function(data){
-        //append new comment to already existing comments
+        //append new comment to already existing comments --> set model again, causing 'ImageView' to refresh
         model.set('comments',[{
           user_comment: model.get('newComment').user_comment,
           comment: model.get('newComment').comment,
@@ -139,7 +137,7 @@ const ImageView = Backbone.View.extend({
   render: function(){
     const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
-  },  
+  },
   events: {
     'click #upload-comment': 'uploadComment'
   },

@@ -131,8 +131,8 @@ app.post('/image/:id',function(req,res){
   };
   const query = 'INSERT INTO comments (image_id,user_comment,comment) VALUES ($1,$2,$3) RETURNING created_at';
   db.query(query,[image_id,user_comment,comment])
-  .then(function(created_atData){
-    res.json({created_at:created_atData.rows[0].created_at});
+  .then(function(data){
+    res.json({created_at:data.rows[0].created_at.toLocaleString()});
   })
   .catch(function(err){
     throw `Error adding new comment into database`;
