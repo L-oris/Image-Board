@@ -52,9 +52,12 @@ app.use(require('body-parser').urlencoded({
 //serve static files (as well as Backbone app)
 app.use(express.static(__dirname + '/public'));
 
-app.get('/images',function(req, res){
+app.get('/images/:pageNumber',function(req, res){
+  //set required number of images retrieved from server
+  const imagesRetrieved = 6;
+  const {pageNumber} = req.params;
   //get data from server
-  db.query('SELECT * FROM images')
+  db.query('SELECT * FROM images LIMIT $1 OFFSET $2',[imagesRetrieved,imagesRetrieved*(pageNumber-1)])
   .then(function(data){
     dbimages = data.rows.map(function(item){
       item.image = s3Url+item.image;

@@ -12,12 +12,14 @@ Backbone.View.prototype.setElement = function(el){
   oldSetElement.call(this,el);
 };
 
+
+
 //Handle data for home page
 const HomeModel = Backbone.Model.extend({
   initialize: function(){
     this.fetch();
   },
-  url: '/images'
+  url: '/images/1'
 });
 
 //create View for home page
