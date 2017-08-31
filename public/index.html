@@ -80,23 +80,23 @@
       <h4 class="image-user">By {{username}}</h4>
       <img class="image-img" src="{{image}}" alt="{{title}}">
       <h2 class="image-title">{{title}}</h2>
-      <h3>Comments now!</h3>
-      <div class="error">
-        <h4 class="text-error">All Fields are required</h4>
-      </div>
-      <h1>Write your comment!</h1>
-      <label for="user_comment">Your name</label>
-      <input type="text" name="user_comment">
-      <label for="comment">Your comment</label>
-      <textarea name="comment"></textarea>
-      <button type="button" id="upload-comment">COMMENT!</button>
-      <div class="loader"></div>
-      {{#each comments}}
+      <div class="image-comments">
+        <div class="image-your-comment">
+          <div class="error">
+            <h4 class="text-error">All Fields are required</h4>
+          </div>
+          <textarea name="comment" placeholder="Add a comment.."></textarea>
+          <input type="text" name="user_comment" placeholder="Your aka">
+          <i id="upload-comment" class="fa fa-arrow-circle-o-right fa-3x" aria-hidden="true"></i>
+          <div class="loader"></div>
+        </div>
+        {{#each comments}}
         <h6>User:: {{user_comment}}</h6>
         <p>Comment:: {{comment}}</p>
         <p>Created At:: {{created_at}}</p>
         <br>
-      {{/each}}
+        {{/each}}
+      </div>
     </div>
   </template>
 

@@ -12,6 +12,9 @@ a {
   text-decoration: none;
   color: black;
 }
+input, textarea {
+  font-family: 'Encode Sans Condensed', sans-serif;
+}
 .inline {
   display: inline;
 }
@@ -198,11 +201,30 @@ p.speech:after {
   color: #d2d4d3;
   font-style: italic;
 }
-.image-title {
+.image-title, .image-user {
   font-family: 'Gloria Hallelujah', cursive;
 }
 .image-img {
   width: 100%;
+  border: 3px solid white;
+}
+.image-comments {
+  margin-top: 2em;
+  border-top: 1px solid white;
+  padding-top: 1em;
+}
+.image-your-comment textarea {
+  width: 100%;
+}
+.image-your-comment input[name="user_comment"] {
+  background-color: rgb(45,45,45);
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+  border-radius: .3em;
+  padding: .5em;
+  font-family: 'Gloria Hallelujah', cursive;
+  vertical-align: text-bottom;
 }
 
 @media screen and (min-width: 768px){
