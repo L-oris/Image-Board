@@ -121,8 +121,6 @@ const UploadView = Backbone.View.extend({
 
 const ImageModel = Backbone.Model.extend({
   url: function(){
-    console.log('first Model',JSON.stringify(this));
-    console.log('currentModel',this);
     //when requesting data from server, pass down the image 'id' in order to query database. Also set url based on how many comments already displayed --> useful for pagination
     if(!(this.get('comments'))){
       return `/image/${this.get('id')}/0`;
@@ -184,15 +182,13 @@ const ImageView = Backbone.View.extend({
   },
 
   getOtherComments: function(){
-    console.log('button clicked');
     //get new images from database and push to Model
     $.get(this.model.url(),(data)=>{
-      console.log('data received is',data);
-      // this.model.set('images',[...this.model.get('images'),...data.images]);
-      // //hide the 'more-images' button if no other images to display
-      // if(data.images.length<6){
-      //   $('#more-images').hide();
-      // }
+      this.model.set('comments',[...this.model.get('comments'),...data.comments]);
+      //hide the 'more-images' button if no other images to display
+      if(data.comments.length<10){
+        $('#more-comments').hide();
+      }
     })
   }
 

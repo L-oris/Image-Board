@@ -53,7 +53,7 @@ app.use(require('body-parser').urlencoded({
 app.use(express.static(__dirname + '/public'));
 
 app.get('/images/:pageNumber',function(req, res){
-  //set required number of images retrieved from server
+  //set required number of images retrieved from database
   const imagesRetrieved = 6;
   const {pageNumber} = req.params;
   //get data from server
@@ -103,16 +103,19 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   });
 })
 
-app.get('/image/:id',function(req,res){
-  //grab all useful data relative to selected image
-  const {id} = req.params;
+
+//grab all useful data relative to selected image
+app.get('/image/:id/:pageNumber',function(req,res){
+  //set required number of comments retrieved from database
+  const commentsRetrieved = 10;
+  const {id,pageNumber} = req.params;
   const query = 'SELECT image,username,title,description FROM images WHERE id = $1';
   db.query(query,[id])
   .then(function(imageData){
     //add path to AWS
     imageData.rows[0].image = s3Url+imageData.rows[0].image;
-    const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1 ORDER BY created_at DESC';
-    return db.query(query,[id])
+    const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3';
+    return db.query(query,[id,commentsRetrieved,commentsRetrieved*pageNumber])
     .then(function(commentsData){
       res.json({
         id:id,
