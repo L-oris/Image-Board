@@ -91,10 +91,11 @@
           <div class="loader"></div>
         </div>
         {{#each comments}}
-        <h6>User:: {{user_comment}}</h6>
-        <p>Comment:: {{comment}}</p>
-        <p>Created At:: {{created_at}}</p>
-        <br>
+        <p class="user-message">Comment:: {{comment}}</p>
+        <div class="user-comment">
+          <h4>{{user_comment}}</h4>
+          <p>{{created_at}}</p>
+        </div>
         {{/each}}
       </div>
     </div>

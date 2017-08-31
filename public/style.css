@@ -13,6 +13,7 @@ a {
   color: black;
 }
 input, textarea {
+  box-sizing: border-box;
   font-family: 'Encode Sans Condensed', sans-serif;
 }
 .inline {
@@ -215,6 +216,9 @@ p.speech:after {
 }
 .image-your-comment textarea {
   width: 100%;
+  border: 3px solid #666;
+  border-radius: .5em;
+  padding: .8em;
 }
 .image-your-comment input[name="user_comment"] {
   background-color: rgb(45,45,45);
@@ -226,7 +230,43 @@ p.speech:after {
   font-family: 'Gloria Hallelujah', cursive;
   vertical-align: text-bottom;
 }
-
+.user-message {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  object-fit: cover;
+  text-align: center;
+  line-height: 50px;
+  background-color: #fff;
+  border: 5px solid #666;
+  border-radius: 20px;
+  color: black;
+}
+.user-message::before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 30px;
+  top: 50px;
+  border: 15px solid;
+  border-color: #666 transparent transparent #666;
+}
+.user-message::after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 34px;
+  top: 50px;
+  border: 10px solid;
+  border-color: #fff transparent transparent #fff;
+}
+.user-comment {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em;
+}
 @media screen and (min-width: 768px){
   header {
     font-size: 1.3em;
