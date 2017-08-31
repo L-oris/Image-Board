@@ -37,8 +37,6 @@ const HomeModel = Backbone.Model.extend({
 //create View for home page
 const HomeView = Backbone.View.extend({
   initialize: function(){
-    //try first getting all existing images
-    this.getOtherImages();
     //re-render the view whenever model changes
     this.model.on('change', ()=>{
       this.render();
@@ -158,8 +156,6 @@ const ImageModel = Backbone.Model.extend({
 
 const ImageView = Backbone.View.extend({
   initialize: function(){
-    //try first getting all existing comments
-    this.getOtherComments();
     //re-render 'ImageView' when anything on ImageModel changes
     this.model.on('change',()=>{
       this.render();
