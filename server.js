@@ -129,10 +129,10 @@ app.post('/image/:id',function(req,res){
   if(!(image_id,user_comment,comment)){
     throw 'Incorrect fields provided for posting new comment';
   };
-  const query = 'INSERT INTO comments (image_id,user_comment,comment) VALUES ($1,$2,$3) RETURNING id';
+  const query = 'INSERT INTO comments (image_id,user_comment,comment) VALUES ($1,$2,$3) RETURNING created_at';
   db.query(query,[image_id,user_comment,comment])
-  .then(function(idData){
-    res.json({id:idData.rows[0].id});
+  .then(function(created_atData){
+    res.json({created_at:created_atData.rows[0].created_at});
   })
   .catch(function(err){
     throw `Error adding new comment into database`;

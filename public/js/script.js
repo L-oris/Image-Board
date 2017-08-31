@@ -22,6 +22,7 @@ const HomeModel = Backbone.Model.extend({
 
 //create View for home page
 const HomeView = Backbone.View.extend({
+
   initialize: function(){
     var view = this;
     //re-render the view whenever model changes
@@ -39,6 +40,7 @@ const HomeView = Backbone.View.extend({
 
 
 const UploadModel = Backbone.Model.extend({
+
   url: '/upload',
   save: function(){
     //use the browser's built in FormData
@@ -63,6 +65,7 @@ const UploadModel = Backbone.Model.extend({
     });
   }
 });
+
 //create View for upload page --> allow to upload new images using <input type="file"/>
 const UploadView = Backbone.View.extend({
   initialize: function(){
@@ -79,6 +82,7 @@ const UploadView = Backbone.View.extend({
   events: {
     'click button': 'uploadImage'
   },
+
   uploadImage: function(e){
     //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
     const title = this.$el.find('input[name="title"]').val();
@@ -105,24 +109,25 @@ const ImageModel = Backbone.Model.extend({
   initialize: function(){
     this.fetch();
   },
+
   save: function(){
-    const formData = {
-      image_id: this.get('image_id'),
-      user_comment: this.get('user_comment'),
-      comment: this.get('comment')
-    };
-    //make ajax request to server with that data
     const model = this;
     $.ajax({
       url: this.url(),
       method: 'POST',
-      data: formData,
-      success: function(){
-        model.throw('change');
+      data: this.get('newComment'),
+      success: function(data){
+        //append new comment to already existing comments
+        model.set('comments',[{
+          user_comment: model.get('newComment').user_comment,
+          comment: model.get('newComment').comment,
+          created_at: data.created_at
+        },...model.get('comments')]);
       }
     });
   }
 });
+
 const ImageView = Backbone.View.extend({
   initialize: function(){
     const view = this;
@@ -134,10 +139,11 @@ const ImageView = Backbone.View.extend({
   render: function(){
     const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
-  },
+  },  
   events: {
     'click #upload-comment': 'uploadComment'
   },
+
   uploadComment: function(){
     //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
     const image_id = this.model.get('id');
@@ -147,7 +153,7 @@ const ImageView = Backbone.View.extend({
     if(!(image_id&&user_comment&&comment)){
       $('.image-container .text-error').show();
     } else {
-      this.model.set({image_id,user_comment,comment}).save();
+      this.model.set('newComment',{image_id,user_comment,comment}).save();
       $('#upload-comment, .image-container .text-error').hide();
       $('.image-container .loader').show();
     }
@@ -163,6 +169,7 @@ const Router = Backbone.Router.extend({
     'upload': 'upload',
     'image/:id':'image'
   },
+
   home: function(){
     $('#upload').empty();
     new HomeView({
