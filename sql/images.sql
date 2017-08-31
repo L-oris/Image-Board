@@ -7,6 +7,7 @@ CREATE TABLE images(
   username VARCHAR(255) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
+  likes INTEGER,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
