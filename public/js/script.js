@@ -35,6 +35,15 @@ const HomeView = Backbone.View.extend({
     //fill template with data from model, then fill the View with it
     const html = Handlebars.templates.home(this.model.toJSON());
     this.$el.html(html);
+  },
+  events: {
+    'click #more-images': 'getOtherImages'
+  },
+  getOtherImages: function(){
+    //change model's url, and fetch new data
+    const nextPageNumber = Number(this.model.url.substr(-1)) + 1;
+    this.model.url = this.model.url.slice(0,-1) + nextPageNumber;
+    this.model.fetch();
   }
 });
 
