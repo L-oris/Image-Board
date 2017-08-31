@@ -32,10 +32,9 @@ const HomeModel = Backbone.Model.extend({
 //create View for home page
 const HomeView = Backbone.View.extend({
   initialize: function(){
-    var view = this;
     //re-render the view whenever model changes
-    this.model.on('change', function(){
-      view.render();
+    this.model.on('change', ()=>{
+      this.render();
     })
   },
   render: function(){
@@ -71,14 +70,13 @@ const UploadModel = Backbone.Model.extend({
     formData.append('username',this.get('username'));
     formData.append('file',this.get('file'));
     //make ajax request to server with that data
-    const model = this;
     $.ajax({
       url: this.url,
       method: 'POST',
       data: formData,
       processData: false,
       contentType: false,
-      success: function(){
+      success: ()=>{
         //render Home again with new data
         router.navigate('',true);
       }
