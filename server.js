@@ -57,7 +57,7 @@ app.get('/images/:pageNumber',function(req, res){
   const imagesRetrieved = 6;
   const {pageNumber} = req.params;
   //get data from server
-  db.query('SELECT * FROM images LIMIT $1 OFFSET $2',[imagesRetrieved,imagesRetrieved*(pageNumber-1)])
+  db.query('SELECT * FROM images ORDER BY created_at DESC LIMIT $1 OFFSET $2',[imagesRetrieved,imagesRetrieved*pageNumber])
   .then(function(data){
     dbimages = data.rows.map(function(item){
       item.image = s3Url+item.image;

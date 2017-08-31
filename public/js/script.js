@@ -17,9 +17,16 @@ Backbone.View.prototype.setElement = function(el){
 //Handle data for home page
 const HomeModel = Backbone.Model.extend({
   initialize: function(){
+    this.set('page',1);
     this.fetch();
   },
-  url: '/images/1'
+  url: function(){
+    //set url based on which images already displayed --> useful for pagination
+    if(!(this.get('images'))){
+      return `/images/0`
+    }
+    return `/images/${this.get('images').length/6}`
+  }
 });
 
 //create View for home page
@@ -40,10 +47,14 @@ const HomeView = Backbone.View.extend({
     'click #more-images': 'getOtherImages'
   },
   getOtherImages: function(){
-    //change model's url, and fetch new data
-    const nextPageNumber = Number(this.model.url.substr(-1)) + 1;
-    this.model.url = this.model.url.slice(0,-1) + nextPageNumber;
-    this.model.fetch();
+    //get new images from database and push to Model
+    $.get(this.model.url(),(data)=>{
+      this.model.set('images',[...this.model.get('images'),...data.images]);
+      //hide the 'more-images' button if no other images to display
+      if(data.images.length<6){
+        $('#more-images').hide();
+      }
+    })
   }
 });
 
