@@ -1,7 +1,7 @@
 //setup variables (must be equal on server-side)
 //set number of images you wanna first load on 'HomeView' and number of comments you wanna first load on 'ImageView'
 const imagesLoaded = 6;
-const commentsLoaded = 10;
+const commentsLoaded = 3;
 
 
 //implement infinite scrolling
@@ -10,6 +10,7 @@ const commentsLoaded = 10;
     if($(document).scrollTop() + $(window).height() > $(document).height()-200){
       // if we're on bottom, and there are more results to be displayed, get them
       $('#more-images').trigger('loadImages');
+      $('#more-comments').trigger('loadComments');
     }
     // loop over the timer again
     myTimer();
@@ -170,9 +171,6 @@ const ImageView = Backbone.View.extend({
     //re-render 'ImageView' when anything on ImageModel changes
     this.model.on('change',()=>{
       this.render();
-      if(this.model.get('comments').length < commentsLoaded){
-        $('#more-comments').hide();
-      }
     });
   },
   render: function(){
@@ -184,7 +182,7 @@ const ImageView = Backbone.View.extend({
   },
   events: {
     'click #upload-comment': 'uploadComment',
-    'click #more-comments': 'getOtherComments',
+    'loadComments #more-comments': 'getOtherComments',
     'click #thumb-up': 'likeImage'
   },
 
@@ -207,10 +205,6 @@ const ImageView = Backbone.View.extend({
     //get new images from database and push to Model
     $.get(this.model.url(),(data)=>{
       this.model.set('comments',[...this.model.get('comments'),...data.comments]);
-      //hide the 'more-images' button if no other images to display
-      if(data.comments.length<commentsLoaded){
-        $('#more-comments').hide();
-      }
     })
   },
 
