@@ -38,6 +38,10 @@ input, textarea {
 .no-margin {
   margin: 0;
 }
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
 .loader {
   display: none;
   border: 16px solid #f3f3f3; /* Light grey */
@@ -61,8 +65,8 @@ header {
   border-bottom: 10px solid rgb(45,45,45);
 }
 section {
-  width: 90%;
-  margin: 80px auto 20px;
+  margin-top: 80px;
+  margin-bottom: 20px;
 }
 .margin-center {
   margin-left: 5%;
@@ -149,17 +153,18 @@ section {
 .cards {
   width: 85%;
   margin: 1em auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 220px;
-  grid-gap: 15px 15px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .card {
+  flex: 1 100%;
+  margin-bottom: 5px;
+}
+.card-content {
   position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 95%;
+  margin: 0 auto;
   border: 4px solid white;
-  background-color: white;
 }
 .card-img {
   width: 100%;
@@ -167,18 +172,8 @@ section {
   object-fit: cover;
 }
 .card-overlay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 50px;
-  text-align: center;
+  display: none;
 }
-.card-title, .card-description {
-  margin-top: 5px;
-  margin-bottom: 0
-}
-
 .image-container {
   color: white;
 }
@@ -265,34 +260,28 @@ section {
     height: 70px;
     padding: .5em 2.5em;
   }
-  .cards {
-    margin-top: 100px;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-rows: 200px;
-    grid-gap: 10px 10px;
+  .card {
+    flex: 1 50%;
   }
 }
 @media screen and (min-width: 1024px){
   .upload-field input, .upload-field textarea {
     width: 50%;
   }
-  .cards {
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: 200px;
-    grid-gap: 10px 10px;
+  .card {
+    flex: 1 33.3%;
   }
+
 }
 @media screen and (min-width: 1200px){
-  .cards {
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 200px;
-    grid-gap: 10px 10px;
+  .card {
+    flex: 1 25%;
   }
+
   .card-img {
     height: 100%;
   }
   .card-overlay {
-    display: none;
     position: absolute;
     top: 0;
     left: 0;

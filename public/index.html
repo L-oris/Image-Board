@@ -33,17 +33,19 @@
 
 
   <template id="home">
-    <ul class="cards">
+    <ul class="cards margin-center">
       {{#each images}}
         <li class="card">
-          <a href="#image/{{id}}">
-            <img class="card-img" src="{{image}}">
-            <div class="card-overlay">
-              <p class="card-user">{{username}}</p>
-              <h4 class="card-title">{{title}}</h4>
-              <p class="card-description">{{description}}</p>
-            </div>
-          </a>
+          <div class="card-content">
+            <a href="#image/{{id}}">
+              <img class="card-img" src="{{image}}" alt="{{title}}">
+              <div class="card-overlay">
+                <p class="card-user">{{username}}</p>
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-description no-margin">{{description}}</p>
+              </div>
+            </a>
+          </div>
         </li>
       {{/each}}
     </ul>
