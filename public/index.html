@@ -87,16 +87,16 @@
           <div class="error">
             <h4 class="text-error">All Fields are required</h4>
           </div>
-          <textarea name="comment" placeholder="Add a comment.."></textarea>
-          <input type="text" name="user_comment" placeholder="Your aka">
+          <textarea name="comment" placeholder="Add a comment.." maxlength="100" cols="60" rows="3"></textarea>
+          <input type="text" name="user_comment" placeholder="Your aka" maxlength="12">
           <i id="upload-comment" class="fa fa-arrow-circle-o-right fa-3x" aria-hidden="true"></i>
           <div class="loader"></div>
         </div>
         {{#each comments}}
         <p class="user-message">{{comment}}</p>
-        <div class="user-comment">
-          <h4>{{user_comment}}</h4>
-          <p>{{created_at}}</p>
+        <div class="user-message-details">
+          <h4 class="no-margin">{{user_comment}}</h4>
+          <p class="no-margin">{{created_at}}</p>
         </div>
         {{/each}}
         <button id="more-comments">More</button>
