@@ -15,6 +15,7 @@ a {
 input, textarea {
   box-sizing: border-box;
   font-family: 'Encode Sans Condensed', sans-serif;
+  resize: none;
 }
 .inline {
   display: inline;
@@ -63,12 +64,19 @@ section {
   width: 90%;
   margin: 80px auto 20px;
 }
+.margin-center {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.padding-center {
+  padding-left: 5%;
+  padding-right: 5%;
+}
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  padding: 0 1.5em;
   background-color: white;
 }
 .navbar-logo a {
@@ -76,11 +84,13 @@ section {
   font-size: 1.2em;
   font-family: 'Gloria Hallelujah', cursive;
 }
+.navbar-logo a i {
+  vertical-align: text-bottom;
+  margin-right: -8px;
+}
 .hidden-menu-btn {
   background-color: transparent;
-  font-size: 1.5em;
   border: none;
-  padding: 1em;
 }
 .upload-fields {
   text-align: center;
@@ -89,20 +99,24 @@ section {
 }
 .upload-field input, .upload-field textarea {
   font-family: 'Encode Sans Condensed', sans-serif;
-  font-weight: bold;
   letter-spacing: .5px;
   background-color: white;
   padding: .4em;
   border-radius: .3em;
   border: 2px solid black;
   margin-bottom: .3em;
-  width: 70%;
+  width: 90%;
+  text-align: center;
+  font-size: 1.1em;
 }
 .upload-field label {
   display: block;
   font-weight: bold;
   color: black;
   letter-spacing: 1px;
+  font-style: italic;
+  padding-top: .6em;
+  padding-bottom: .4em;
 }
 .inputfile {
 	width: 0.1px;
