@@ -40,11 +40,7 @@ const HomeModel = Backbone.Model.extend({
     this.fetch();
   },
   url: function(){
-    //set url based on which images already displayed --> useful for pagination
-    if(!(this.get('images'))){
-      return `/images/0`
-    }
-    return `/images/${this.get('images').length/imagesLoaded}`
+    return `/images/${this.get('page')}`;
   }
 });
 
@@ -67,7 +63,8 @@ const HomeView = Backbone.View.extend({
   getOtherImages: function(){
     clearTimeout('searchTimeout');
     //get new images from database and push to Model
-    $.get(this.model.url(),(data)=>{
+    this.model.set('page',this.model.get('page')+1);
+    $.get(`/images/${this.model.get('page')}`,(data)=>{
       this.model.set('images',[...this.model.get('images'),...data.images]);
       //hide the 'more-images' button if no other images to display
     })
@@ -138,11 +135,7 @@ const UploadView = Backbone.View.extend({
 
 const ImageModel = Backbone.Model.extend({
   url: function(){
-    //when requesting data from server, pass down the image 'id' in order to query database. Also set url based on how many comments already displayed --> useful for pagination
-    if(!(this.get('comments'))){
-      return `/image/${this.get('id')}/0`;
-    }
-    return `/image/${this.get('id')}/${this.get('comments').length/commentsLoaded}`
+    return `/image/${this.get('id')}/${this.get('page')}`
   },
   initialize: function(){
     this.fetch();
@@ -202,8 +195,10 @@ const ImageView = Backbone.View.extend({
   },
 
   getOtherComments: function(){
+    clearTimeout('searchTimeout');
     //get new images from database and push to Model
-    $.get(this.model.url(),(data)=>{
+    this.model.set('page',this.model.get('page')+1);
+    $.get(`/image/${this.model.get('id')}/${this.model.get('page')}`,(data)=>{
       this.model.set('comments',[...this.model.get('comments'),...data.comments]);
     })
   },
@@ -234,7 +229,7 @@ const Router = Backbone.Router.extend({
   home: function(){
     $('#upload').empty();
     new HomeView({
-      model: new HomeModel(),
+      model: new HomeModel({page:0}),
       el: '#main'
     }).render();
   },
@@ -246,7 +241,7 @@ const Router = Backbone.Router.extend({
   },
   image: function(id){
     new ImageView({
-      model: new ImageModel({id:id}),
+      model: new ImageModel({id:id,page:0}),
       el: '#main'
     }).render()
   }
