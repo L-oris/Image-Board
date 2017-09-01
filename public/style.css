@@ -161,6 +161,7 @@ section {
   column-gap: 0px;
 }
 .card {
+  display: inline-block;
   margin: .3em;
 }
 .card-img {
