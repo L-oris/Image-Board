@@ -199,10 +199,14 @@ const ImageView = Backbone.View.extend({
 
   likeImage: function(){
     const url = `/image/${this.model.get('id')}/thumbup`;
-    $.post(url,(data)=>{
-      console.log('like successfully submitted',data);
-      console.log('model',this.model);
-    });
+    //if user doesn't already thumb-up image, let him do it
+    if(!(localStorage.getItem('thumb-up'))){
+      $.post(url,(data)=>{
+        this.model.set('likes',data.likes);
+        $('#thumb-up').css('color','red');
+        localStorage.setItem('thumb-up',true);
+      });
+    }
   }
 
 });

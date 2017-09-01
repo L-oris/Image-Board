@@ -111,7 +111,7 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
 //grab all useful data relative to selected image
 app.get('/image/:id/:pageNumber',function(req,res){
   const {id,pageNumber} = req.params;
-  const query = 'SELECT image,username,title,description FROM images WHERE id = $1';
+  const query = 'SELECT image,username,title,description,likes FROM images WHERE id = $1';
   db.query(query,[id])
   .then(function(imageData){
     //add path to AWS
