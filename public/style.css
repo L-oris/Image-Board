@@ -152,28 +152,22 @@ section {
 }
 .cards {
   width: 85%;
-  margin: 1em auto;
-  display: flex;
-  flex-wrap: wrap;
+  margin: 0 auto;
+  line-height: 0;
+  column-count: 1;
+  column-gap: 0px;
 }
 .card {
-  flex: 1 100%;
-  margin-bottom: 5px;
-}
-.card-content {
   position: relative;
-  width: 95%;
-  margin: 0 auto;
-  border: 4px solid white;
 }
 .card-img {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
+  height: auto;
 }
 .card-overlay {
   display: none;
 }
+
 .image-container {
   color: white;
 }
@@ -260,27 +254,24 @@ section {
     height: 70px;
     padding: .5em 2.5em;
   }
-  .card {
-    flex: 1 50%;
+  .cards {
+    column-count: 2;
   }
 }
 @media screen and (min-width: 1024px){
   .upload-field input, .upload-field textarea {
     width: 50%;
   }
-  .card {
-    flex: 1 33.3%;
+  .cards {
+    column-count: 3;
   }
 
 }
 @media screen and (min-width: 1200px){
-  .card {
-    flex: 1 25%;
+  .cards {
+    column-count: 4;
   }
 
-  .card-img {
-    height: 100%;
-  }
   .card-overlay {
     position: absolute;
     top: 0;
