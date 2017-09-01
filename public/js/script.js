@@ -40,6 +40,9 @@ const HomeView = Backbone.View.extend({
     //re-render the view whenever model changes
     this.model.on('change', ()=>{
       this.render();
+      if(this.model.get('images').length < imagesLoaded){
+        $('#more-images').hide();
+      }
     })
   },
   render: function(){
@@ -159,11 +162,17 @@ const ImageView = Backbone.View.extend({
     //re-render 'ImageView' when anything on ImageModel changes
     this.model.on('change',()=>{
       this.render();
+      if(this.model.get('comments').length < commentsLoaded){
+        $('#more-comments').hide();
+      }
     });
   },
   render: function(){
     const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
+    if(localStorage.getItem(`thumb-up-${this.model.get('id')}`)){
+      $('#thumb-up').css('color','red')
+    };
   },
   events: {
     'click #upload-comment': 'uploadComment',
@@ -200,11 +209,10 @@ const ImageView = Backbone.View.extend({
   likeImage: function(){
     const url = `/image/${this.model.get('id')}/thumbup`;
     //if user doesn't already thumb-up image, let him do it
-    if(!(localStorage.getItem('thumb-up'))){
+    if(!(localStorage.getItem(`thumb-up-${this.model.get('id')}`))){
       $.post(url,(data)=>{
+        localStorage.setItem(`thumb-up-${this.model.get('id')}`,true);
         this.model.set('likes',data.likes);
-        $('#thumb-up').css('color','red');
-        localStorage.setItem('thumb-up',true);
       });
     }
   }
