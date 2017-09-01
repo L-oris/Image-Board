@@ -4,6 +4,19 @@ const imagesLoaded = 6;
 const commentsLoaded = 10;
 
 
+//implement infinite scrolling
+(function myTimer(){
+  searchTimeout = setTimeout(function(){
+    if($(document).scrollTop() + $(window).height() > $(document).height()-200){
+      // if we're on bottom, and there are more results to be displayed, get them
+      $('#more-images').trigger('loadImages');
+    }
+    // loop over the timer again
+    myTimer();
+  },1000)
+}());
+
+
 //set up Handlebars
 Handlebars.templates = Handlebars.templates || {};
 const templates = document.querySelectorAll('template');
@@ -51,9 +64,11 @@ const HomeView = Backbone.View.extend({
     this.$el.html(html);
   },
   events: {
-    'click #more-images': 'getOtherImages'
+    'loadImages #more-images': 'getOtherImages'
   },
   getOtherImages: function(){
+    clearTimeout('searchTimeout');
+    console.log('function triggered!');
     //get new images from database and push to Model
     $.get(this.model.url(),(data)=>{
       this.model.set('images',[...this.model.get('images'),...data.images]);
