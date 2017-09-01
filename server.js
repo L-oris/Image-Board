@@ -97,7 +97,7 @@ app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   if(!(username,title,description,filename)){
     throw 'Incorrect fields provided';
   };
-  const query = 'INSERT INTO images (image,username,title,description) VALUES ($1,$2,$3,$4)';
+  const query = 'INSERT INTO images (image,username,title,description,likes) VALUES ($1,$2,$3,$4,0)';
   db.query(query,[filename,username,title,description])
   .then(function(){
     res.json({success:true});
@@ -132,13 +132,15 @@ app.get('/image/:id/:pageNumber',function(req,res){
 })
 
 function likeImage(req,res){
-
-  //TO DO!!
-  //when setting new image, also set its 'likes' value to zero!!!
-
   const {id} = req.params;
-  const query = 'UPDATE images SET likes = likes+1 WHERE id=1';
-  res.send('ok');
+  const query = 'UPDATE images SET likes = likes+1 WHERE id=$1 returning likes';
+  db.query(query,[id])
+  .then(function(data){
+    res.json({likes:data.rows[0].likes})
+  })
+  .catch(function(e){
+    throw `Error adding 'Like' into database`;
+  })
 }
 
 app.post('/image/:id/:thumbup?',function(req,res){

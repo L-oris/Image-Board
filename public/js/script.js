@@ -198,10 +198,10 @@ const ImageView = Backbone.View.extend({
   },
 
   likeImage: function(){
-    console.log('like button clicked');
     const url = `/image/${this.model.get('id')}/thumbup`;
-    $.post(url,function(data){
-      console.log('like successfully submitted');
+    $.post(url,(data)=>{
+      console.log('like successfully submitted',data);
+      console.log('model',this.model);
     });
   }
 
