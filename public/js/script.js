@@ -53,9 +53,6 @@ const HomeView = Backbone.View.extend({
     //re-render the view whenever model changes
     this.model.on('change', ()=>{
       this.render();
-      if(this.model.get('images').length < imagesLoaded){
-        $('#more-images').hide();
-      }
     })
   },
   render: function(){
@@ -68,14 +65,10 @@ const HomeView = Backbone.View.extend({
   },
   getOtherImages: function(){
     clearTimeout('searchTimeout');
-    console.log('function triggered!');
     //get new images from database and push to Model
     $.get(this.model.url(),(data)=>{
       this.model.set('images',[...this.model.get('images'),...data.images]);
       //hide the 'more-images' button if no other images to display
-      if(data.images.length<imagesLoaded){
-        $('#more-images').hide();
-      }
     })
   }
 });
