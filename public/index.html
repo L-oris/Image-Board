@@ -37,13 +37,13 @@
       {{#each images}}
         <li class="card">
           <a href="#image/{{id}}">
-            <img class="card-img" src="{{image}}" alt="{{title}}">
-            <div class="card-overlay">
-              <p class="card-user">{{username}}</p>
-              <h4 class="card-title">{{title}}</h4>
-              <p class="card-description no-margin">{{description}}</p>
-            </div>
-          </a>
+          <img class="card-img" src="{{image}}" alt="{{title}}">
+          <div class="card-details">
+            <p class="card-user no-margin">{{username}}</p>
+            <h4 class="card-title no-margin">{{title}}</h4>
+            <p class="card-description no-margin">{{description}}</p>
+          </div>
+        </a>
         </li>
       {{/each}}
     </ul>
@@ -77,11 +77,12 @@
   </template>
 
   <template id="image">
-    <div class="image-container">
+    <div class="image-container margin-center">
       <h4 class="image-user">By {{username}}</h4>
       <img class="image-img" src="{{image}}" alt="{{title}}">
-      <button id="thumb-up">Like!</button>
       <h2 class="image-title">{{title}}</h2>
+      <i id="thumb-up" class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
+      <h5 class="image-description">{{description}}</h5>
       <div class="image-comments">
         <div class="image-your-comment">
           <div class="error">
