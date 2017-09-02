@@ -109,7 +109,7 @@ const UploadView = Backbone.View.extend({
   },
   render: function(){
     const html = Handlebars.templates.upload({});
-    this.$el.html(html);
+    this.$el.html(html).find('.upload-container').effect('slide').effect('shake');
   },
   events: {
     'click button': 'uploadImage'
