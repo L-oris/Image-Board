@@ -62,6 +62,9 @@ input, textarea {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+/**/
 header {
   position: fixed;
   top: 0;
@@ -81,6 +84,9 @@ section {
   padding-left: 5%;
   padding-right: 5%;
 }
+
+
+/**/
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -101,7 +107,10 @@ section {
   background-color: transparent;
   color: white;
 }
-.upload-fields {
+
+
+/**/
+.upload-container {
   text-align: center;
   background-color: white;
   padding: 1.5em;
@@ -145,7 +154,7 @@ section {
   margin: 1.5em;
   border-radius: 5px;
 }
-.upload-fields button {
+.upload-container button {
   background-color: transparent;
   border: none;
   font-size: 2em;
@@ -155,6 +164,9 @@ section {
   border-bottom: 3px solid var(--main-logo-color);
   font-family: 'Gloria Hallelujah', cursive;
 }
+
+
+/**/
 .cards {
   column-count: 1;
   column-gap: 2px;
@@ -184,7 +196,7 @@ section {
   justify-content: space-between;
 }
 
-/**/
+
 /**/
 .image-container {
   color: white;
@@ -263,6 +275,9 @@ section {
   align-items: center;
   padding: 0 1em;
 }
+
+
+/**/
 @media screen and (min-width: 768px){
   .margin-center {
     margin-left: 7.5%;
