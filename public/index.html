@@ -82,10 +82,14 @@
     <div class="image-container margin-center">
       <h4 class="image-user">By {{username}}</h4>
       <img class="image-img" src="{{image}}" alt="{{title}}">
-      <h2 class="image-title">{{title}}</h2>
-      <i id="thumb-up" class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
-      <h3>Likes {{likes}}</h3>
-      <h5 class="image-description">{{description}}</h5>
+      <div class="image-details">
+        <div class="image-likes">
+          <i id="thumb-up" class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
+          <h3 class="no-margin">Likes {{likes}}</h3>
+        </div>
+        <h2 class="image-title">{{title}}</h2>
+      </div>
+      <h4 class="image-description">{{description}}</h4>
       <div class="image-comments">
         <div class="image-your-comment">
           <h4 class="text-error">All Fields are required</h4>

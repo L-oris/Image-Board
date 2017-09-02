@@ -194,7 +194,7 @@ const ImageView = Backbone.View.extend({
     const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
     if(localStorage.getItem(`thumb-up-${this.model.get('id')}`)){
-      $('#thumb-up').css('color','red')
+      $('.image-likes').css('color','red')
     };
   },
   events: {

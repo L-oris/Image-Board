@@ -222,6 +222,10 @@ section {
 }
 .image-img {
   width: 100%;
+  margin-bottom: 1em;
+}
+.image-likes {
+  text-align: center;
 }
 .image-comments {
   margin-top: 2em;
@@ -311,6 +315,16 @@ section {
   .cards {
     column-count: 2;
   }
+  .image-container {
+    font-size: 1.2em;
+  }
+  .image-details {
+    display: flex;
+  }
+  .image-title {
+    order: -1;
+    margin-right: auto;
+  }
 }
 @media screen and (min-width: 1024px){
   .margin-center {
@@ -327,7 +341,9 @@ section {
   .cards {
     column-count: 3;
   }
-
+  .image-container {
+    font-size: 1.4em;
+  }
 }
 @media screen and (min-width: 1200px){
   .margin-center {
@@ -343,5 +359,8 @@ section {
   }
   .cards {
     column-count: 4;
+  }
+  .image-container {
+    font-size: 1.2em;
   }
 }
