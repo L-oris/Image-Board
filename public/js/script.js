@@ -7,7 +7,7 @@ const commentsLoaded = 3;
 //implement infinite scrolling
 (function myTimer(){
   searchTimeout = setTimeout(function(){
-    if($(document).scrollTop() + $(window).height() > $(document).height()-200){
+    if($(document).scrollTop() + $(window).height() > $(document).height()-50){
       // if we're on bottom, and there are more results to be displayed, get them
       $('#more-images').trigger('loadImages');
       $('#more-comments').trigger('loadComments');

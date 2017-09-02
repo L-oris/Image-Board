@@ -1,5 +1,6 @@
 :root {
-  --main-bg-color: rgb(45,45,45);
+  --main-bg-color: rgb(255,255,255);
+  --main-nav-color: rgb(45,45,45);
 }
 
 body {
@@ -84,7 +85,7 @@ section {
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  background-color: white;
+  background-color: var(--main-nav-color);
 }
 .navbar-logo a {
   color: indianred;
@@ -94,10 +95,11 @@ section {
 .navbar-logo a i {
   vertical-align: text-bottom;
   margin-right: -8px;
+  color: white;
 }
-.hidden-menu-btn {
+.upload-menu-btn {
   background-color: transparent;
-  border: none;
+  color: white;
 }
 .upload-fields {
   text-align: center;
@@ -158,27 +160,32 @@ section {
   margin: 0 auto;
   line-height: 1em;
   column-count: 1;
-  column-gap: 0px;
+  column-gap: 2px;
 }
 .card {
   display: inline-block;
-  margin: .3em;
+}
+.card a {
+  position: relative;
 }
 .card-img {
   width: 100%;
   height: auto;
-  border-top-right-radius: 1em;
-  border-top-left-radius: 1em;
-
 }
 .card-details {
-  background-color: white;
-  border-bottom-right-radius: 1em;
-  border-bottom-left-radius: 1em;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 4px;
+  z-index: 1;
+  width: 100%;
+  background-color: rgba(0,0,0,.5);
   padding: 1em;
   overflow-wrap: break-word;
+  color: white;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
-
 
 /**/
 /**/

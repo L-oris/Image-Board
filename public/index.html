@@ -19,7 +19,7 @@
             <h3 class="inline">Image Board</h3>
           </a>
         </div>
-        <div class="hidden-menu-btn"><a href="/#upload"><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></a></div>
+        <a class="upload-menu-btn" href="/#upload"><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></a>
       </div>
 
       <!-- container for Handlebars content -->
@@ -37,13 +37,15 @@
       {{#each images}}
         <li class="card">
           <a href="#image/{{id}}">
-          <img class="card-img" src="{{image}}" alt="{{title}}">
-          <div class="card-details">
-            <p class="card-user no-margin">{{username}}</p>
-            <h4 class="card-title no-margin">{{title}}</h4>
-            <p class="card-description no-margin">{{description}}</p>
-          </div>
-        </a>
+            <img class="card-img" src="{{image}}" alt="{{title}}">
+            <div class="card-details">
+              <h4 class="card-title no-margin">{{title}}</h4>
+              <div class="likes">
+                <h4 class="inline">{{likes}}</h4>
+                <i class="fa fa-heart" aria-hidden="true"></i>
+              </div>
+            </div>
+          </a>
         </li>
       {{/each}}
     </ul>
