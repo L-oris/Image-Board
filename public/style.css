@@ -1,5 +1,5 @@
 :root {
-  --main-bg-color: rgb(255,255,255);
+  --main-bg-color: #fafafa;
   --main-nav-color: rgb(45,45,45);
 }
 
@@ -69,7 +69,7 @@ header {
   z-index: 2;
 }
 section {
-  margin-top: 150px;
+  margin-top: 70px;
   margin-bottom: 20px;
 }
 .margin-center {
@@ -88,14 +88,13 @@ section {
   background-color: var(--main-nav-color);
 }
 .navbar-logo a {
-  color: indianred;
+  color: dodgerblue;
   font-size: 1.2em;
   font-family: 'Gloria Hallelujah', cursive;
 }
 .navbar-logo a i {
   vertical-align: text-bottom;
   margin-right: -8px;
-  color: white;
 }
 .upload-menu-btn {
   background-color: transparent;
@@ -156,9 +155,6 @@ section {
   font-family: 'Gloria Hallelujah', cursive;
 }
 .cards {
-  width: 85%;
-  margin: 0 auto;
-  line-height: 1em;
   column-count: 1;
   column-gap: 2px;
 }
@@ -267,9 +263,6 @@ section {
   padding: 0 1em;
 }
 @media screen and (min-width: 768px){
-  header {
-    font-size: 1.3em;
-  }
   .margin-center {
     margin-left: 7.5%;
     margin-right: 7.5%;
@@ -279,9 +272,11 @@ section {
     padding-right: 7.5%;
   }
   .navbar {
-    font-size: 1.2em;
-    height: 70px;
-    padding: .5em 2.5em;
+    height: 90px;
+    font-size: 1.3em;
+  }
+  section {
+    margin-top: 140px;
   }
   .cards {
     column-count: 2;
@@ -315,18 +310,5 @@ section {
   }
   .cards {
     column-count: 4;
-  }
-
-  .card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    height: 100%;
-    color: white;
-    background-color: rgba(0,0,0,.3);
-  }
-  .card:hover .card-overlay {
-    display: block;
   }
 }
