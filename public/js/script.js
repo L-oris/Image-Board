@@ -76,7 +76,10 @@ const HomeView = Backbone.View.extend({
     this.model.set('page',this.model.get('page')+1);
     $.get(`/images/${this.model.get('page')}`,(data)=>{
       this.model.set('images',[...this.model.get('images'),...data.images]);
-      //hide the 'more-images' button if no other images to display
+      //prevent infinite scrolling from requesting new images if no other available
+      if(data.images.length<imagesLoaded){
+        $('#more-images').remove();
+      }
     })
   }
 });
@@ -220,6 +223,10 @@ const ImageView = Backbone.View.extend({
     this.model.set('page',this.model.get('page')+1);
     $.get(`/image/${this.model.get('id')}/${this.model.get('page')}`,(data)=>{
       this.model.set('comments',[...this.model.get('comments'),...data.comments]);
+      //prevent infinite scrolling from requesting new images if no other available
+      if(data.comments.length<commentsLoaded){
+        $('#more-comments').remove();
+      }
     })
   },
 
