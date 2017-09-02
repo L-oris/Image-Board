@@ -134,7 +134,7 @@ const UploadView = Backbone.View.extend({
     addOverlay();
   },
   events: {
-    'click button': 'uploadImage'
+    'click #upload-image': 'uploadImage'
   },
 
   uploadImage: function(){
@@ -144,7 +144,7 @@ const UploadView = Backbone.View.extend({
     const username = this.$el.find('input[name="username"]').val();
     const file = this.$el.find('input[type="file"]').prop('files')[0];
     if(!(title&&description&&username&&file)){
-      $('.upload-fields .text-error').show();
+      $('.text-error').show();
     } else {
       this.model.set({title,description,username,file}).save();
       $('.upload-fields button, .upload-fields .text-error').hide();
