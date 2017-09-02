@@ -212,22 +212,20 @@ section {
 
 /**/
 .image-container {
-  color: white;
 }
 .image-title, .image-user {
   font-family: 'Gloria Hallelujah', cursive;
 }
 .image-user {
-  color: #d2d4d3;
+  color: #7f7f7f;
   font-style: italic;
 }
 .image-img {
   width: 100%;
-  border: 3px solid white;
 }
 .image-comments {
   margin-top: 2em;
-  border-top: 1px solid white;
+  border-top: 1px solid black;
   padding-top: 1em;
 }
 .image-your-comment textarea {
@@ -239,9 +237,8 @@ section {
 }
 .image-your-comment input[name="user_comment"] {
   background-color: var(--main-bg-color);
-  color: white;
   font-weight: bold;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: .3em;
   padding: .5em;
   font-family: 'Gloria Hallelujah', cursive;
@@ -340,6 +337,9 @@ section {
   .padding-center {
     padding-left: 12.5%;
     padding-right: 12.5%;
+  }
+  .upload-container {
+    width: 60%;
   }
   .cards {
     column-count: 4;
