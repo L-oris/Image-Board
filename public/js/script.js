@@ -121,6 +121,7 @@ const UploadView = Backbone.View.extend({
     });
     //if user clicks somewhere on the overlay, remove 'UploadView' and return back
     $('.overlay').click(function(){
+      $('#upload').empty();
       removeOverlay();
       $(this).off('click');
       window.history.back();
@@ -223,7 +224,7 @@ const ImageView = Backbone.View.extend({
     this.model.set('page',this.model.get('page')+1);
     $.get(`/image/${this.model.get('id')}/${this.model.get('page')}`,(data)=>{
       this.model.set('comments',[...this.model.get('comments'),...data.comments]);
-      //prevent infinite scrolling from requesting new images if no other available
+      //prevent infinite scrolling from requesting new comments if no other available
       if(data.comments.length<commentsLoaded){
         $('#more-comments').remove();
       }
