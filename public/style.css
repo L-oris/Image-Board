@@ -1,6 +1,7 @@
 :root {
   --main-bg-color: #fafafa;
   --main-nav-color: rgb(45,45,45);
+  --main-logo-color: dodgerblue;
 }
 
 body {
@@ -88,7 +89,7 @@ section {
   background-color: var(--main-nav-color);
 }
 .navbar-logo a {
-  color: dodgerblue;
+  color: var(--main-logo-color);
   font-size: 1.2em;
   font-family: 'Gloria Hallelujah', cursive;
 }
@@ -149,9 +150,9 @@ section {
   border: none;
   font-size: 2em;
   font-weight: bold;
-  color: indianred;
-  border-top: 2px solid indianred;
-  border-bottom: 3px solid indianred;
+  color: var(--main-logo-color);
+  border-top: 2px solid var(--main-logo-color);
+  border-bottom: 3px solid var(--main-logo-color);
   font-family: 'Gloria Hallelujah', cursive;
 }
 .cards {
