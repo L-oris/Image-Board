@@ -227,10 +227,12 @@ section {
 .image-likes {
   text-align: center;
 }
-.image-comments {
+.image-your-comment {
   margin-top: 2em;
   border-top: 1px solid black;
   padding-top: 1em;
+  border-bottom: 2px solid black;
+  padding-bottom: 1em;
 }
 .image-your-comment textarea {
   width: 100%;
@@ -238,6 +240,7 @@ section {
   border-radius: .5em;
   padding: .8em;
   line-height: 1.3em;
+  margin: 1em 0;
 }
 .image-your-comment input[name="user_comment"] {
   background-color: var(--main-bg-color);
@@ -245,8 +248,16 @@ section {
   border: 2px solid black;
   border-radius: .3em;
   padding: .5em;
-  font-family: 'Gloria Hallelujah', cursive;
   vertical-align: text-bottom;
+  margin: 1em 0
+}
+.image-send-comment {
+  text-align: center;
+  color: green;
+}
+.image-send-comment h2 {
+  font-family: 'Gloria Hallelujah', cursive;
+  vertical-align: super;
 }
 .user-message {
   box-sizing: border-box;
@@ -261,6 +272,7 @@ section {
   word-break: break-all;
   padding: 1em;
   line-height: 1.3em;
+  margin-top: 3em;
   margin-bottom: 2em;
 }
 .user-message::before {

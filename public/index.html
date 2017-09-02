@@ -93,9 +93,12 @@
       <div class="image-comments">
         <div class="image-your-comment">
           <h4 class="text-error">All Fields are required</h4>
-          <textarea name="comment" placeholder="Add a comment.." maxlength="100" cols="60" rows="3"></textarea>
-          <input type="text" name="user_comment" placeholder="Your aka" maxlength="12">
-          <i id="upload-comment" class="fa fa-arrow-circle-o-right fa-3x" aria-hidden="true"></i>
+          <input type="text" name="user_comment" placeholder="Your aka" maxlength="15">
+          <textarea name="comment" placeholder="Add a comment.." maxlength="200" cols="60" rows="3"></textarea>
+          <div class="image-send-comment">
+            <h2 class="inline">Send</h2>
+            <i id="upload-comment" class="fa fa-arrow-circle-o-right fa-3x" aria-hidden="true"></i>
+          </div>
           <div class="loader"></div>
         </div>
         {{#each comments}}
