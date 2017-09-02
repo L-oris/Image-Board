@@ -70,7 +70,7 @@ header {
   top: 0;
   left: 0;
   width: 100vw;
-  z-index: 2;
+  z-index: 10;
 }
 section {
   margin-top: 70px;
@@ -84,7 +84,20 @@ section {
   padding-left: 5%;
   padding-right: 5%;
 }
-
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.6);
+}
+.prevent-scrolling {
+  overflow: hidden;
+  position: relative;
+}
 
 /**/
 .navbar {
@@ -290,6 +303,10 @@ section {
   .navbar {
     height: 90px;
     font-size: 1.3em;
+  }
+  .upload-container {
+    width: 70%;
+    margin: 0 auto;
   }
   section {
     margin-top: 140px;

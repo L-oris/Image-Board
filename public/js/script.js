@@ -3,6 +3,14 @@
 const imagesLoaded = 6;
 const commentsLoaded = 3;
 
+function addOverlay(){
+  $('.overlay').show();
+  $('body').addClass('prevent-scrolling');
+}
+function removeOverlay(){
+  $('.overlay').hide();
+  $('body').removeClass('prevent-scrolling');
+}
 
 //implement infinite scrolling
 (function myTimer(){
@@ -53,6 +61,8 @@ const HomeView = Backbone.View.extend({
     })
   },
   render: function(){
+    //remove the grey overlay on the entire body (added from 'UploadView')
+    removeOverlay();
     //fill template with data from model, then fill the View with it
     const html = Handlebars.templates.home(this.model.toJSON());
     this.$el.html(html);
@@ -106,10 +116,18 @@ const UploadView = Backbone.View.extend({
     this.model.on('fileUploaded',function(){
       router.navigate('',true);
     });
+    //if user clicks somewhere on the overlay, remove 'UploadView' and return back
+    $('.overlay').click(function(){
+      removeOverlay();
+      $(this).off('click');
+      window.history.back();
+    });
   },
   render: function(){
     const html = Handlebars.templates.upload({});
     this.$el.html(html).find('.upload-container').effect('slide').effect('shake');
+    //add grey overlay on the entire body and prevent scrolling
+    addOverlay();
   },
   events: {
     'click button': 'uploadImage'
@@ -167,6 +185,8 @@ const ImageView = Backbone.View.extend({
     });
   },
   render: function(){
+    //remove the grey overlay on the entire body (added from 'UploadView')
+    removeOverlay();
     const html = Handlebars.templates.image(this.model.toJSON());
     this.$el.html(html);
     if(localStorage.getItem(`thumb-up-${this.model.get('id')}`)){
