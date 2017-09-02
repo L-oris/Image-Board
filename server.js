@@ -118,11 +118,15 @@ app.get('/image/:id/:pageNumber',function(req,res){
     imageData.rows[0].image = s3Url+imageData.rows[0].image;
     const query = 'SELECT user_comment,comment,created_at FROM comments WHERE image_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3';
     return db.query(query,[id,commentsLoaded,commentsLoaded*pageNumber])
-    .then(function(commentsData){
+    .then(function(data){
+      const commentsData = data.rows.map(function(comment){
+        comment.created_at = comment.created_at.toLocaleString();
+        return comment;
+      });
       res.json({
         id:id,
         ...imageData.rows[0],
-        comments: commentsData.rows
+        comments: commentsData
       })
     })
   })
