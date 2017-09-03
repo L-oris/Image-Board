@@ -1,41 +1,22 @@
-//setup variables (must be equal on client-side)
-//set required number of images retrieved from database per time
+//set required number of images and comments retrieved from database per time
+//PS. Those variables must be equal client-side (for pagination)
 const imagesLoaded = 6;
 //set required number of comments retrieved from database per time
 const commentsLoaded = 10;
 
 const express = require('express'),
       app = express(),
-      multer = require('multer'),
-      uidSafe = require('uid-safe'),
-      path = require('path'),
       fs = require('fs'),
       knox = require('knox');
-//get url for static images
-const {s3Url} = require('./config.json');
 
 //connect to local database
 const {username,password} = require('./secrets.json');
 var spicedPg = require('spiced-pg');
 var db = spicedPg(`postgres:${username}:${password}@localhost:5432/imageBoard`);
 
-//set up middleware for image uploading
-const diskStorage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, __dirname + '/uploads');
-  },
-  filename: function (req, file, callback) {
-    uidSafe(24).then(function(uid) {
-      callback(null, uid + path.extname(file.originalname));
-    });
-  }
-});
-const uploader = multer({
-  storage: diskStorage,
-  limits: {
-    filesize: 2097152
-  }
-});
+//get url for static images
+const {s3Url} = require('./config.json');
+
 
 //setup 'knox' module to upload files to Amazon S3 Service
 let secrets;
@@ -50,10 +31,29 @@ const client = knox.createClient({
   bucket: 'image-board-loris'
 })
 
+function uploadToS3(req,res,next){
+  const s3Request = client.put(req.file.filename,{
+    'Content-Type': req.file.mimetype,
+    'Content-Length': req.file.size,
+    'x-amz-acl': 'public-read'
+  });
+  fs.createReadStream(req.file.path).pipe(s3Request);
+  s3Request.on('response', function(s3Response){
+    if(s3Response.statusCode !== 200){
+      res.json({success: false});
+    } else {
+      next();
+    }
+  });
+}
+
 //body-parser
 app.use(require('body-parser').urlencoded({
     extended: false
 }))
+
+//get and set up middlewares
+const {uploader} = require('./express/middleware');
 
 //serve static files (as well as Backbone app)
 app.use(express.static(__dirname + '/public'));
@@ -73,22 +73,6 @@ app.get('/images/:pageNumber',function(req, res){
     throw `Error getting images from database`;
   });
 })
-
-function uploadToS3(req,res,next){
-  const s3Request = client.put(req.file.filename,{
-    'Content-Type': req.file.mimetype,
-    'Content-Length': req.file.size,
-    'x-amz-acl': 'public-read'
-  });
-  fs.createReadStream(req.file.path).pipe(s3Request);
-  s3Request.on('response', function(s3Response){
-    if(s3Response.statusCode !== 200){
-      res.json({success: false});
-    } else {
-      next();
-    }
-  });
-}
 
 app.post('/upload',uploader.single('file'),uploadToS3,function(req,res){
   //at this point image is saved into 'uploads' directory and uploaded to AWS S3. Now we store image data into database
