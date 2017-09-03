@@ -1,8 +1,21 @@
-const multer = require('multer'),
-      uidSafe = require('uid-safe'),
-      path = require('path'),
+const express = require('express'),
       fs = require('fs'),
+      path = require('path'),
+      multer = require('multer'),
+      uidSafe = require('uid-safe'),
       knox = require('knox');
+
+
+//attach middlewares to main 'app' object
+module.exports.middlewares = function(app){
+
+  app.use(require('body-parser').urlencoded({
+      extended: false
+  }));
+
+  //serve static files (as well as Backbone app)
+  app.use(express.static(path.join(__dirname + '/../public')));
+}
 
 
 //image uploading

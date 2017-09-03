@@ -12,16 +12,13 @@ const {username,password} = require('./secrets.json');
 var spicedPg = require('spiced-pg');
 var db = spicedPg(`postgres:${username}:${password}@localhost:5432/imageBoard`);
 
+//add middlewares
+const {middlewares} = require('./express/middleware');
+middlewares(app);
 
-//body-parser
-app.use(require('body-parser').urlencoded({
-    extended: false
-}))
 
 //get url for static images
 const {s3Url} = require('./config.json');
-//serve static files (as well as Backbone app)
-app.use(express.static(__dirname + '/public'));
 
 //get middlewares to work with AWS S3
 const {uploader, uploadToS3} = require('./express/middleware');
