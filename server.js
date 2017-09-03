@@ -1,7 +1,6 @@
 const express = require('express'),
       app = express();
 
-
 //setup middlewares
 const {middlewares} = require('./express/middleware');
 middlewares(app);

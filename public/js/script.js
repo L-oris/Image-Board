@@ -1,7 +1,7 @@
 //set number of images you wanna first load on 'HomeView' and number of comments you wanna first load on 'ImageView'.
 //PS. Those variables must be equal server-side (for pagination)
 const imagesLoaded = 6;
-const commentsLoaded = 10;
+const commentsLoaded = 5;
 
 //set up Handlebars
 Handlebars.templates = Handlebars.templates || {};
@@ -21,7 +21,7 @@ Backbone.View.prototype.setElement = function(el){
 //implement infinite scrolling
 (function myTimer(){
   searchTimeout = setTimeout(function(){
-    if($(document).scrollTop() + $(window).height() > $(document).height()-50){
+    if($(document).scrollTop() + $(window).height() > $(document).height()-100){
       //when reaching bottom page, ask models for new data
       $('#more-images').trigger('loadImages');
       $('#more-comments').trigger('loadComments');

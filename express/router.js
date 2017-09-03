@@ -2,7 +2,7 @@
 //PS. Those variables must be equal client-side
 const imagesLoaded = 6;
 //set required number of comments retrieved from database per time
-const commentsLoaded = 10;
+const commentsLoaded = 5;
 
 const express = require('express'),
       router = express.Router();
