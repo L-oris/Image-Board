@@ -5,58 +5,27 @@ const imagesLoaded = 6;
 const commentsLoaded = 10;
 
 const express = require('express'),
-      app = express(),
-      fs = require('fs'),
-      knox = require('knox');
+      app = express();
 
 //connect to local database
 const {username,password} = require('./secrets.json');
 var spicedPg = require('spiced-pg');
 var db = spicedPg(`postgres:${username}:${password}@localhost:5432/imageBoard`);
 
-//get url for static images
-const {s3Url} = require('./config.json');
-
-
-//setup 'knox' module to upload files to Amazon S3 Service
-let secrets;
-if(process.env.NODE_ENV==='production'){
-  secrets = process.env;
-} else {
-  secrets = require('./secrets');
-}
-const client = knox.createClient({
-  key: secrets.AWS_KEY,
-  secret: secrets.AWS_SECRET,
-  bucket: 'image-board-loris'
-})
-
-function uploadToS3(req,res,next){
-  const s3Request = client.put(req.file.filename,{
-    'Content-Type': req.file.mimetype,
-    'Content-Length': req.file.size,
-    'x-amz-acl': 'public-read'
-  });
-  fs.createReadStream(req.file.path).pipe(s3Request);
-  s3Request.on('response', function(s3Response){
-    if(s3Response.statusCode !== 200){
-      res.json({success: false});
-    } else {
-      next();
-    }
-  });
-}
 
 //body-parser
 app.use(require('body-parser').urlencoded({
     extended: false
 }))
 
-//get and set up middlewares
-const {uploader} = require('./express/middleware');
-
+//get url for static images
+const {s3Url} = require('./config.json');
 //serve static files (as well as Backbone app)
 app.use(express.static(__dirname + '/public'));
+
+//get middlewares to work with AWS S3
+const {uploader, uploadToS3} = require('./express/middleware');
+
 
 app.get('/images/:pageNumber',function(req, res){
   const {pageNumber} = req.params;
