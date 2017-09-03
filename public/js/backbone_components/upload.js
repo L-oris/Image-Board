@@ -31,6 +31,7 @@ window.imageBoard.UploadModel = Backbone.Model.extend({
 });
 
 
+
 window.imageBoard.UploadView = Backbone.View.extend({
 
   initialize: function(){
