@@ -1,7 +1,7 @@
 //set number of images you wanna first load on 'HomeView' and number of comments you wanna first load on 'ImageView'.
 //PS. Those variables must be equal server-side (for pagination)
 const imagesLoaded = 6;
-const commentsLoaded = 3;
+const commentsLoaded = 10;
 
 //set up Handlebars
 Handlebars.templates = Handlebars.templates || {};
