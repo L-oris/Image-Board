@@ -319,6 +319,13 @@ section {
     height: 90px;
     font-size: 1.3em;
   }
+  .upload-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+  }
   .upload-menu-icon {
     display: none;
   }

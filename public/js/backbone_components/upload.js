@@ -47,7 +47,7 @@ window.imageBoard.UploadView = Backbone.View.extend({
 
   render: function(){
     const html = Handlebars.templates.upload({});
-    this.$el.html(html).find('.upload-container').effect('slide').effect('shake');
+    this.$el.html(html);
     //add grey overlay on the entire body and prevent scrolling
     addOverlay();
   },
