@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+
     <header>
       <div class="navbar padding-center">
         <div class="navbar-logo">
@@ -22,106 +23,103 @@
         <a class="upload-menu-icon" href="/#upload"><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></a>
         <a class="upload-menu-text" href="/#upload"><h3>/ Upload /</h3></a>
       </div>
-
       <!-- container for Handlebars content -->
       <div id="upload"></div>
     </header>
+
     <section>
       <!-- container for Handlebars content -->
       <div id="main"></div>
-
       <div class="overlay"></div>
     </section>
 
-
-
-  <template id="home">
-    <ul class="cards margin-center">
-      {{#each images}}
-        <li class="card">
-          <a href="#image/{{id}}">
-            <img class="card-img" src="{{image}}" alt="{{title}}">
-            <div class="card-details">
-              <h4 class="card-title no-margin">{{title}}</h4>
-              <div class="card-likes">
-                <h4 class="inline">{{likes}}</h4>
-                <i class="fa fa-heart" aria-hidden="true"></i>
+    <template id="home">
+      <ul class="cards margin-center">
+        {{#each images}}
+          <li class="card">
+            <a href="#image/{{id}}">
+              <img class="card-img" src="{{image}}" alt="{{title}}">
+              <div class="card-details">
+                <h4 class="card-title no-margin">{{title}}</h4>
+                <div class="card-likes">
+                  <h4 class="inline">{{likes}}</h4>
+                  <i class="fa fa-heart" aria-hidden="true"></i>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-      {{/each}}
-    </ul>
-    <button type="button" style="display: none" id="more-images">More</button>
-  </template>
-
-  <template id="upload">
-    <div class="upload-container">
-      <h4 class="text-error">All Fields are required</h4>
-      <div class="upload-field">
-        <label for="title">Title</label>
-        <input type="text" name="title" maxlength="20">
-      </div>
-      <div class="upload-field">
-        <label for="description">Description</label>
-        <textarea name="description" cols="60" rows="3"></textarea>
-      </div>
-      <div class="upload-field">
-        <label for="username">User</label>
-        <input type="text" name="username" maxlength="20">
-      </div>
-      <div class="choosefile">
-        <input type="file" name="choose" id="choose" class="inputfile" required>
-        <label for="choose">Choose a file</label>
-      </div>
-      <button id="upload-image" type="button" name="file" class="block-center">Upload</button>
-      <div class="loader"></div>
-    </div>
-  </template>
-
-  <template id="image">
-    <div class="image-container margin-center">
-      <h4 class="image-user">By {{username}}</h4>
-      <img class="image-img" src="{{image}}" alt="{{title}}">
-      <div class="image-details">
-        <div class="image-likes">
-          <i id="thumb-up" class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
-          <h3 class="no-margin">Likes {{likes}}</h3>
-        </div>
-        <h2 class="image-title">{{title}}</h2>
-      </div>
-      <h4 class="image-description">{{description}}</h4>
-      <div class="image-comments">
-        <div class="image-your-comment">
-          <h4 class="text-error">All Fields are required</h4>
-          <input type="text" name="user_comment" placeholder="Your aka" maxlength="15">
-          <textarea name="comment" placeholder="Add a comment.." maxlength="200" cols="60" rows="3"></textarea>
-          <div class="image-send-comment">
-            <h2 class="inline">Send</h2>
-            <i id="upload-comment" class="fa fa-arrow-circle-o-right fa-3x" aria-hidden="true"></i>
-          </div>
-          <div class="loader"></div>
-        </div>
-        {{#each comments}}
-        <p class="user-message">{{comment}}</p>
-        <div class="user-message-details">
-          <h4 class="no-margin">{{user_comment}}</h4>
-          <p class="no-margin">{{created_at}}</p>
-        </div>
+            </a>
+          </li>
         {{/each}}
-        <button id="more-comments" style="display:none">More</button>
-      </div>
-    </div>
-  </template>
+      </ul>
+      <button type="button" style="display: none" id="more-images">More</button>
+    </template>
 
-  <script type="text/javascript" src="js/dependencies/handlebars.min.js"></script>
-  <script type="text/javascript" src="js/dependencies/jquery-3.1.1.min.js"></script>
-  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="js/dependencies/underscore-min.js"></script>
-  <script type="text/javascript" src="js/dependencies/backbone-min.js"></script>
-  <script type="text/javascript" src="js/backbone_components/home.js"></script>
-  <script type="text/javascript" src="js/backbone_components/upload.js"></script>
-  <script type="text/javascript" src="js/backbone_components/image.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
-</body>
+    <template id="upload">
+      <div class="upload-container">
+        <h4 class="text-error">All Fields are required</h4>
+        <div class="upload-field">
+          <label for="title">Title</label>
+          <input type="text" name="title" maxlength="20">
+        </div>
+        <div class="upload-field">
+          <label for="description">Description</label>
+          <textarea name="description" cols="60" rows="3"></textarea>
+        </div>
+        <div class="upload-field">
+          <label for="username">User</label>
+          <input type="text" name="username" maxlength="20">
+        </div>
+        <div class="choosefile">
+          <input type="file" name="choose" id="choose" class="inputfile" required>
+          <label for="choose">Choose a file</label>
+        </div>
+        <button id="upload-image" type="button" name="file" class="block-center">Upload</button>
+        <div class="loader"></div>
+      </div>
+    </template>
+
+    <template id="image">
+      <div class="image-container margin-center">
+        <h4 class="image-user">By {{username}}</h4>
+        <img class="image-img" src="{{image}}" alt="{{title}}">
+        <div class="image-details">
+          <div class="image-likes">
+            <i id="thumb-up" class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
+            <h3 class="no-margin">Likes {{likes}}</h3>
+          </div>
+          <h2 class="image-title">{{title}}</h2>
+        </div>
+        <h4 class="image-description">{{description}}</h4>
+        <div class="image-comments">
+          <div class="image-your-comment">
+            <h4 class="text-error">All Fields are required</h4>
+            <input type="text" name="user_comment" placeholder="Your aka" maxlength="15">
+            <textarea name="comment" placeholder="Add a comment.." maxlength="200" cols="60" rows="3"></textarea>
+            <div class="image-send-comment">
+              <h2 class="inline">Send</h2>
+              <i id="upload-comment" class="fa fa-arrow-circle-o-right fa-3x" aria-hidden="true"></i>
+            </div>
+            <div class="loader"></div>
+          </div>
+          {{#each comments}}
+          <p class="user-message">{{comment}}</p>
+          <div class="user-message-details">
+            <h4 class="no-margin">{{user_comment}}</h4>
+            <p class="no-margin">{{created_at}}</p>
+          </div>
+          {{/each}}
+          <button id="more-comments" style="display:none">More</button>
+        </div>
+      </div>
+    </template>
+
+    <script type="text/javascript" src="js/dependencies/handlebars.min.js"></script>
+    <script type="text/javascript" src="js/dependencies/jquery-3.1.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/dependencies/underscore-min.js"></script>
+    <script type="text/javascript" src="js/dependencies/backbone-min.js"></script>
+    <script type="text/javascript" src="js/backbone_components/home.js"></script>
+    <script type="text/javascript" src="js/backbone_components/upload.js"></script>
+    <script type="text/javascript" src="js/backbone_components/image.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+  </body>
 </html>
