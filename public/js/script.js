@@ -86,72 +86,6 @@ const HomeView = Backbone.View.extend({
 
 
 
-const UploadModel = Backbone.Model.extend({
-  url: '/upload',
-  save: function(){
-    //use the browser's built in FormData
-    const formData = new FormData();
-    //append there data that model owns
-    formData.append('title',this.get('title'));
-    formData.append('description',this.get('description'));
-    formData.append('username',this.get('username'));
-    formData.append('file',this.get('file'));
-    //make ajax request to server with that data
-    $.ajax({
-      url: this.url,
-      method: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: ()=>{
-        //render Home again with new data
-        router.navigate('',true);
-      }
-    });
-  }
-});
-
-//create View for upload page --> allow to upload new images using <input type="file"/>
-const UploadView = Backbone.View.extend({
-  initialize: function(){
-    this.render();
-    //when new file has uploaded, re-render HomeView with new data --> listen for events on model
-    this.model.on('fileUploaded',function(){
-      router.navigate('',true);
-    });
-    //if user clicks somewhere on the overlay, remove 'UploadView' and return back
-    $('.overlay').click(function(){
-      $('#upload').empty();
-      removeOverlay();
-      $(this).off('click');
-      window.history.back();
-    });
-  },
-  render: function(){
-    const html = Handlebars.templates.upload({});
-    this.$el.html(html).find('.upload-container').effect('slide').effect('shake');
-    //add grey overlay on the entire body and prevent scrolling
-    addOverlay();
-  },
-  events: {
-    'click #upload-image': 'uploadImage'
-  },
-
-  uploadImage: function(){
-    //set data from <input>s into model, then 'save()' --> that is making ajax 'POST' request to server
-    const title = this.$el.find('input[name="title"]').val();
-    const description = this.$el.find('textarea[name="description"]').val();
-    const username = this.$el.find('input[name="username"]').val();
-    const file = this.$el.find('input[type="file"]').prop('files')[0];
-    if(!(title&&description&&username&&file)){
-      $('.text-error').show();
-    } else {
-      this.model.set({title,description,username,file}).save();
-      $('.upload-fields button, .upload-fields .text-error').hide();
-      $('.upload-fields .loader').show();
-    }
-  }
-});
 
 
 
@@ -262,8 +196,8 @@ const Router = Backbone.Router.extend({
     }).render();
   },
   upload: function(){
-    new UploadView({
-      model: new UploadModel(),
+    new window.imageBoard.UploadView({
+      model: new window.imageBoard.UploadModel(),
       el: '#upload'
     }).render();
   },
