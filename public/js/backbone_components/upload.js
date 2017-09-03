@@ -63,7 +63,7 @@ window.imageBoard.UploadView = Backbone.View.extend({
     const username = this.$el.find('input[name="username"]').val();
     const file = this.$el.find('input[type="file"]').prop('files')[0];
     if(!(title&&description&&username&&file)){
-      $('.text-error').show();
+      $('.upload-container .text-error').show();
     } else {
       this.model.set({title,description,username,file}).save();
       //reset error-loading messages
