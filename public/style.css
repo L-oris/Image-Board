@@ -169,15 +169,16 @@ section {
   margin: 1.5em;
   border-radius: 5px;
 }
-#upload-image {
+button#upload-image {
   background-color: transparent;
   border: none;
   font-size: 2em;
+  font-family: 'Gloria Hallelujah', cursive;
   font-weight: bold;
   color: var(--main-logo-color);
   border-top: 2px solid var(--main-logo-color);
   border-bottom: 3px solid var(--main-logo-color);
-  font-family: 'Gloria Hallelujah', cursive;
+  margin-bottom: .7em;
 }
 
 

@@ -67,8 +67,8 @@ window.imageBoard.UploadView = Backbone.View.extend({
     } else {
       this.model.set({title,description,username,file}).save();
       //reset error-loading messages
-      $('.upload-fields button, .upload-fields .text-error').hide();
-      $('.upload-fields .loader').show();
+      $('.upload-container #upload-image, .upload-fields .text-error').hide();
+      $('.upload-container .loader').show();
     }
   }
 });
