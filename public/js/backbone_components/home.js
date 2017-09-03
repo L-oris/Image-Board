@@ -39,10 +39,11 @@ window.imageBoard.HomeView = Backbone.View.extend({
   getOtherImages: function(){
     clearTimeout('searchTimeout');
     //get new images from database and push to Model
+    //first set url to grab correct data from RESTful server, then make ajax request and set data to model
     this.model.set('page',this.model.get('page')+1);
     $.get(`/images/${this.model.get('page')}`,(data)=>{
       this.model.set('images',[...this.model.get('images'),...data.images]);
-      //prevent infinite scrolling from requesting new images if no other available
+      //prevent infinite scrolling from requesting new images if not available
       if(data.images.length<imagesLoaded){
         $('#more-images').remove();
       }
