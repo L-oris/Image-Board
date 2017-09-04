@@ -44,6 +44,13 @@ function removeOverlay(){
 
 
 const Router = Backbone.Router.extend({
+  initialize: function(){
+    //render 'HomeView' as background of 'UploadView' if starting navigation from '/#upload'
+    if(location.hash === '#upload'){
+      this.home();
+    }
+  },
+
   routes: {
     '': 'home',
     'upload': 'upload',
